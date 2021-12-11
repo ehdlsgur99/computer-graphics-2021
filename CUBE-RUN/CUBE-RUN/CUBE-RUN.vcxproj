@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyInclude\CollisionManager.cpp" />
     <ClCompile Include="MyInclude\Core.cpp" />
     <ClCompile Include="MyInclude\CubeMap.cpp" />
     <ClCompile Include="MyInclude\DepthMap.cpp" />
@@ -151,12 +152,14 @@
     <ClCompile Include="MyInclude\Portal.cpp" />
     <ClCompile Include="MyInclude\Scene.cpp" />
     <ClCompile Include="MyInclude\ShaderProgram.cpp" />
+    <ClCompile Include="MyInclude\SoundManager.cpp" />
     <ClCompile Include="MyInclude\TextureClass.cpp" />
     <ClCompile Include="MyInclude\Tile.cpp" />
     <ClCompile Include="MyInclude\Tiles.cpp" />
     <ClCompile Include="MyInclude\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="MyInclude\CollisionManager.h" />
     <ClInclude Include="MyInclude\Core.h" />
     <ClInclude Include="MyInclude\CubeMap.h" />
     <ClInclude Include="MyInclude\DepthMap.h" />
@@ -169,6 +172,8 @@
     <ClInclude Include="MyInclude\Portal.h" />
     <ClInclude Include="MyInclude\Scene.h" />
     <ClInclude Include="MyInclude\ShaderProgram.h" />
+    <ClInclude Include="MyInclude\Singleton.h" />
+    <ClInclude Include="MyInclude\SoundManager.h" />
     <ClInclude Include="MyInclude\TextureClass.h" />
     <ClInclude Include="MyInclude\Tile.h" />
     <ClInclude Include="MyInclude\Tiles.h" />

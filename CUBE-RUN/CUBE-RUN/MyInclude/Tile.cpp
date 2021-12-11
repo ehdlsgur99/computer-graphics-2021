@@ -66,6 +66,7 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 				glm::vec3 cubePos = glm::vec3(startPos.x + 1.0f * j, startPos.y, startPos.z - 1.0f * i);
 				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/bg.png");	
 				cubes.push_back(cube);
+				cubeTypes.push_back(eCubeNormal);
 			}
 		}
 	}
@@ -85,6 +86,7 @@ void Tile::draw(unsigned int shaderNum, int bindTex)
 
 	for (int i = 0; i < coins.size(); i++)
 	{
+		coins[i]->setRotate(glm::vec3(coins[i]->getRotateVec().x, coins[i]->getRotateVec().y + 0.3f, coins[i]->getRotateVec().z));
 		coins[i]->draw(shaderNum, bindTex);
 	}
 }
