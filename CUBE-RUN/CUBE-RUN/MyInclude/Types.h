@@ -12,7 +12,7 @@ struct CameraVectors {
 	glm::vec3 vUP;
 
 public:
-	float yaw = 0.0f, pitch = 0.0f;
+	float yaw = 90.0f, pitch = 30.0f;
 	float scroll = 5.0f;
 
 public:
@@ -34,10 +34,14 @@ public:
 	}
 
 	glm::vec3 getvEYE() const {
-		glm::vec3 veye = glm::vec3(yaw, pitch,0.0f);
-		return veye;
+		//glm::vec3 veye = glm::vec3(yaw, pitch,0.0f);
+		return vEYE;
 	}
 
+	glm::vec3 get_camera_pos() const {
+		glm::vec3 camera_pos = (vEYE * scroll) + vAT;
+		return camera_pos;
+	}
 	void setTarget(glm::vec3 target) {
 		vAT = target;
 	}

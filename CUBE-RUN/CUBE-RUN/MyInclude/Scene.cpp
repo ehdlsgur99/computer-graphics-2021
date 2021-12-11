@@ -23,7 +23,6 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 
 	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
 	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
-
 }
 
 Scene::~Scene()
@@ -38,14 +37,14 @@ void Scene::input()
 	{
 		m_pPlayer->input('a');
 		glm::vec3 move = m_pPlayer->getTranslateVec();
-		m_pPlayer->Player_side_move(glm::vec3(move.x - 1.0f, move.y, move.z));
+		m_pPlayer->Player_side_move('a');
 	}
 	
 	if (GetAsyncKeyState('D') & 0x0001)
 	{
 		m_pPlayer->input('d');
 		glm::vec3 move = m_pPlayer->getTranslateVec();
-		m_pPlayer->Player_side_move(glm::vec3(move.x + 1.0f, move.y, move.z));
+		m_pPlayer->Player_side_move('d');
 	}
 
 	if (GetAsyncKeyState('Z') & 0x0001)
@@ -72,32 +71,11 @@ void Scene::update(float frameTime)
 	foward = glm::normalize(foward);
 	Player::setForward(-foward);
 	 
-	//----------------------------------------------
-	// player move
-	m_pPlayer->update(frameTime, m_tCamera.getvEYE());
+	
+	//player and camera move
+	m_pPlayer->update(frameTime);
 	m_tCamera.setTarget(m_pPlayer->getTranslateVec());
-
-	//m_pPlayer->setRotateByCamera(m_tCamera.getvEYE());
-	//----------------------------------------------
-	// cubes rotate
-
-	//----------------------------------------------
-	// collide check
-	// player - floor
-
-
-	// player - rotating cube
-
-
-	// player button?
-
-	// player sleeping palyer
-
-	// camera update by player[0]
-	//m_tCamera.vAT = m_pPlayer->getTranslateVec();
-	//CORE->updateViewMat();
-
-	// set Player Dir to zero
+	
 
 	CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
 	Player::setDirZero();

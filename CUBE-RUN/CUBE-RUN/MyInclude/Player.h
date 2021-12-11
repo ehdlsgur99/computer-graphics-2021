@@ -37,14 +37,14 @@ private:
 	
 public:
 	void input(char key);
-	void update(float deltaTime, glm::vec3 veye);
+	void update(float deltaTime);
 	void draw(unsigned int shaderNum, int textureBind);
 
 	static void setDirZero();
 	static void setForward(glm::vec3 newFow);
 	void setRotateByCamera(glm::vec3 veye);
 	float get_angle();
-	void Player_side_move(glm::vec3 move);
+	void Player_side_move(char key);
 public:
 	void moveBack(glm::vec3 backHow);
 

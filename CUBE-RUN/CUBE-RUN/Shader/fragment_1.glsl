@@ -48,7 +48,7 @@ void main(void)
 
 	// specular
 	int shininess = 64;
-	float howSpecular = 0.5;
+	float howSpecular = 0.1;
 	vec3 viewDir = normalize(viewPos - FragPos);
 	vec3 reflectDir = reflect(-lightDir, norm);  
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);

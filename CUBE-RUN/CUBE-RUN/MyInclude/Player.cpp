@@ -61,7 +61,7 @@ void Player::input(char key)
 	m_vDir = glm::normalize(m_vDir + dir);
 }
 
-void Player::update(float deltaTime,glm::vec3 veye)
+void Player::update(float deltaTime)
 {
 	static float fMoveSpeed = 1.0f;
 	static float fRotateSpeed = 100.0f;
@@ -137,7 +137,28 @@ float Player::get_angle()
 }
 
 
-void Player::Player_side_move(glm::vec3 move)
+void Player::Player_side_move(char key)
 {
-	this->setTranslate(move);
+	glm::vec3 move = glm::vec3(0.0f);
+	switch (direction)
+	{
+	case 1:
+		if (key == 'a') move.x = -1;
+		if (key == 'd') move.x = 1;
+		break;
+	case 3:
+		if (key == 'a') move.x = 1;
+		if (key == 'd') move.x = -1;
+		break;
+	case 0:
+		if (key == 'a') move.z = 1;
+		if (key == 'd') move.z = -1;
+		break;
+	case 2:
+		if (key == 'a') move.z = -1;
+		if (key == 'd') move.z = 1;
+		break;
+	}
+	glm::vec3 gettransfrom = this->getTranslateVec();
+	this->setTranslate(glm::vec3(gettransfrom.x + move.x, gettransfrom.y + move.y, gettransfrom.z + move.z));
 }

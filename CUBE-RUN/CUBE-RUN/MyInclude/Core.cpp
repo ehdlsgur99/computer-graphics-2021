@@ -76,14 +76,13 @@ void Single::changeScene(int sceneNum)
 	if (!m_pScene) delete m_pScene;
 
 	CameraVectors temp;
-	temp.pitch = 1.0f;
-	temp.yaw = 0.0f;
+	temp.pitch = 30.0f;
+	temp.yaw = 90.0f;
 	temp.vEYE = glm::vec3(0.0f,2.5f,3.0f);
 	temp.vAT = glm::vec3(0.0f,0.0,-1.0f);
 	temp.vUP = glm::vec3(0.0f, 1.0f, 0.0f);
-	temp.scroll = 11.0f;
+	temp.scroll = 25.0f;
 
-	//updateViewMat();
 	m_pScene = new Scene(sceneNum, temp);
 
 	if (sceneNum) updateViewMat();
@@ -119,12 +118,14 @@ void Single::initializeProgram()
 
 	// light pos;
 	glm::vec3 viewPos = m_pScene->m_tCamera.vEYE;
-	m_vLightPos = glm::vec3(25.0f);
+	m_vLightPos = glm::vec3(m_pScene->m_tCamera.vEYE);
 	m_vLightColor = glm::vec3(1.0f);
 
 	m_pMainShader->setVec3("viewPos", viewPos);
 	m_pMainShader->setVec3("lightPos", m_vLightPos);
 	m_pMainShader->setVec3("lightColor", m_vLightColor);
+
+	show_fog();
 	//-------------------------------------------------------------------------------------
 	// cube shader
 	m_pCube = new Mesh("Objs/Cube.obj", glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f));
@@ -147,11 +148,11 @@ void Single::initializeProgram()
 
 	m_pMainShader->setInt("shadowMap", 0);
 	m_pMainShader->setInt("texture0", 1);
+
 }
 
 void Single::updateViewMat()
 {
-
 	glm::mat4 viewTransform = m_pScene->m_tCamera.getViewMat();
 
 	// view mat
@@ -284,7 +285,36 @@ void Single::gameLoop()
 	CORE->m_pScene->input();
 	CORE->m_pScene->update(deltaTime);
 	CORE->updateViewMat();
+	CORE->update_lightpos();
 	glutPostRedisplay();			// draw
 
 	CORE->m_pTimer->updateDeltaTime();
+}
+
+
+void Single::update_lightpos()
+{
+	glm::vec3 viewPos = m_pScene->m_tCamera.vEYE;
+	m_vLightPos = glm::vec3(m_pScene->m_tCamera.get_camera_pos() * 0.0f);
+	m_vLightColor = glm::vec3(1.0f);
+
+	m_pMainShader->setVec3("viewPos", viewPos);
+	m_pMainShader->setVec3("lightPos", m_vLightPos);
+	m_pMainShader->setVec3("lightColor", m_vLightColor);
+
+	glutPostRedisplay();
+}
+
+void Single::show_fog()
+{
+	GLfloat fogColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	glFogi(GL_FOG_MODE, GL_LINEAR); // <1>
+	glFogfv(GL_FOG_COLOR, fogColor); // <2>
+	glFogf(GL_FOG_DENSITY, 0.7f); // <3>
+	glHint(GL_FOG_HINT, GL_NICEST); // <4>
+	glFogf(GL_FOG_START, 0.0f); // <5>
+	glFogf(GL_FOG_END, 4.0f); // <6>
+	glEnable(GL_FOG); // <7>
 }
