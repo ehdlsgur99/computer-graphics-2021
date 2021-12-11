@@ -20,6 +20,10 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 
 	testTiles = new Tiles();
 	testTiles->init();
+	for (int i = 0; i < 300; i++)
+	{
+		testTiles->createTile();
+	}
 
 	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
 	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));

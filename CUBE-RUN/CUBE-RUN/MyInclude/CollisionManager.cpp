@@ -45,6 +45,8 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 			float distance = sqrt(pow(((playerPos.x) - cubePos.x), 2) + pow(((playerPos.y) - cubePos.y), 2) + pow((playerPos.z - cubePos.z), 2));
 			if (distance < 1.0f)
 			{
+				delete nowTile->coins[j];
+				nowTile->coins.erase(nowTile->coins.begin() + j);
 				return 3;
 			}
 		}

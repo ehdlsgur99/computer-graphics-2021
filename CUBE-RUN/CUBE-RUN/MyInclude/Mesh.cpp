@@ -1,10 +1,22 @@
 #include "Mesh.h"
+#include "ObjectManager.h"
 
 Mesh::Mesh(const char* objFilename, glm::vec3 scale, glm::vec3 rotate, glm::vec3 translate)
 	: m_vScale(scale), m_vRotate(rotate), m_vPivot(translate)
 {
 	// load obj file
-	loadObject(objFilename);
+	ObjectBox objBox = ObjectManager::GetInstance()->checkObjFile(objFilename);
+	if (strcmp(objBox.objName.c_str(), objFilename) != 0)
+		loadObject(objFilename);
+	else
+	{
+		m_iVAO = objBox.VAO;
+		m_iVBO = objBox.VBO;
+		m_vVertexes.resize((int)(objBox.m_vVertexes.size()));
+		std::copy(objBox.m_vVertexes.begin(), objBox.m_vVertexes.end(), m_vVertexes.begin());
+	}
+
+	
 
 	// set object color
 	std::random_device rd;
@@ -20,6 +32,11 @@ Mesh::Mesh(const char* objFilename, glm::vec3 scale, glm::vec3 rotate, glm::vec3
 	updateModelTransfrom();
 
 	initailizeBuffer();
+	
+	if (strcmp(objBox.objName.c_str(), objFilename) != 0)
+	{
+		ObjectManager::GetInstance()->addObjtoBox(objFilename, m_iVAO, m_iVBO, m_vVertexes);
+	}
 }
 
 Mesh::Mesh(const char* objFilename, glm::vec3 scale, glm::vec3 rotate, glm::vec3 translate, glm::vec3 color)
