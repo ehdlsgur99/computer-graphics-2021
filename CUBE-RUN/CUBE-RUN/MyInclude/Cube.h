@@ -3,13 +3,13 @@
 
 class TextureClass;
 
-class Plane : public Mesh {
+class Cube : public Mesh {
 	TextureClass* m_pTexture;
 
 public:
-	Plane() = delete;
-	Plane(const char* objFile, glm::vec3 s, glm::vec3 r, glm::vec3 t, const char* texFile);
-	~Plane();
+	Cube() = delete;
+	Cube(const char* objFile, glm::vec3 s, glm::vec3 r, glm::vec3 t, const char* texFile);
+	~Cube();
 
 public:
 	void draw(unsigned int shaderNum, int bindTex);	

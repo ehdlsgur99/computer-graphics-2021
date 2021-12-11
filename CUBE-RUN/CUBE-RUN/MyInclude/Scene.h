@@ -4,7 +4,7 @@
 
 class Player;
 class Mesh;
-class Plane;
+class Cube;
 class Portal;
 
 class Scene {
@@ -17,8 +17,8 @@ public:
 	CameraVectors m_tCamera;
 
 private:
-	Plane* m_pPlane;
-	Plane* m_pWall[4];
+	Cube* m_pPlane;
+	Cube* m_pWall[4];
 	Portal* m_pPortal[2];
 
 	Player* m_pPlayer;

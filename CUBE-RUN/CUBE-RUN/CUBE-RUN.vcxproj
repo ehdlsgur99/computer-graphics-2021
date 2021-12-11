@@ -146,7 +146,7 @@
     <ClCompile Include="MyInclude\CubeMap.cpp" />
     <ClCompile Include="MyInclude\DepthMap.cpp" />
     <ClCompile Include="MyInclude\Mesh.cpp" />
-    <ClCompile Include="MyInclude\Plane.cpp" />
+    <ClCompile Include="MyInclude\Cube.cpp" />
     <ClCompile Include="MyInclude\Player.cpp" />
     <ClCompile Include="MyInclude\Portal.cpp" />
     <ClCompile Include="MyInclude\Scene.cpp" />
@@ -162,7 +162,7 @@
     <ClInclude Include="MyInclude\includeThis.h" />
     <ClInclude Include="MyInclude\macro.h" />
     <ClInclude Include="MyInclude\Mesh.h" />
-    <ClInclude Include="MyInclude\Plane.h" />
+    <ClInclude Include="MyInclude\Cube.h" />
     <ClInclude Include="MyInclude\Player.h" />
     <ClInclude Include="MyInclude\Portal.h" />
     <ClInclude Include="MyInclude\Scene.h" />
