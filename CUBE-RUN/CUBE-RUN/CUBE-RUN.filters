@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\00_Core">
+      <UniqueIdentifier>{bfe2fa79-ba9b-4903-9e7d-f2301aa079d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Mesh">
+      <UniqueIdentifier>{7047fd99-e88a-4c78-a8bc-791decb2204d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Mesh\Plane">
+      <UniqueIdentifier>{248d94a6-c21a-4fd7-9cf5-95f31001a873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Mesh\Player">
+      <UniqueIdentifier>{dd009749-3c33-462a-8317-762db1bc3e61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scene">
+      <UniqueIdentifier>{c25114f8-1352-4b0c-b7a1-6c2ca8be7064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderProgram">
+      <UniqueIdentifier>{ad32e414-7a65-4f0a-b4c9-e21cf644f35d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderProgram\Shaders">
+      <UniqueIdentifier>{55f17d79-535a-4789-ae09-517fa116997b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderProgram\Shaders\Cube_Shader">
+      <UniqueIdentifier>{71d15bc3-c989-4164-a4d1-8f1b24301339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderProgram\Shaders\Shadow_1Pass">
+      <UniqueIdentifier>{aff4edb0-3bfa-4915-bf45-88d763c757f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderProgram\Shaders\Main_Shader">
+      <UniqueIdentifier>{4f6dd738-b65d-416c-b204-f3690e06a21e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Texture">
+      <UniqueIdentifier>{59995e34-f5dd-4875-9395-4bf7a641ffbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Timer">
+      <UniqueIdentifier>{cc9b59dd-076a-41e0-ae9c-3ca9cb0354d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Texture\Cube">
+      <UniqueIdentifier>{940e4758-5b56-4f18-be2b-a879bd9015fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Texture\DepthMap">
+      <UniqueIdentifier>{d378d4f6-c92c-4b50-b030-ddb2cd91591e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Texture\Simple">
+      <UniqueIdentifier>{c26c62bc-3ef3-4aba-ba35-52793f9b6ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Mesh\Portal">
+      <UniqueIdentifier>{fad9bc02-33e3-4f63-b056-e0b85df22c91}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\Core.cpp">
+      <Filter>소스 파일\00_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\Plane.cpp">
+      <Filter>소스 파일\Mesh\Plane</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\Player.cpp">
+      <Filter>소스 파일\Mesh\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\Mesh.cpp">
+      <Filter>소스 파일\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\Scene.cpp">
+      <Filter>소스 파일\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\ShaderProgram.cpp">
+      <Filter>소스 파일\ShaderProgram\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\CubeMap.cpp">
+      <Filter>소스 파일\Texture\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\DepthMap.cpp">
+      <Filter>소스 파일\Texture\DepthMap</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\TextureClass.cpp">
+      <Filter>소스 파일\Texture\Simple</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\Timer.cpp">
+      <Filter>소스 파일\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyInclude\Portal.cpp">
+      <Filter>소스 파일\Mesh\Portal</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyInclude\Core.h">
+      <Filter>소스 파일\00_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Plane.h">
+      <Filter>소스 파일\Mesh\Plane</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Player.h">
+      <Filter>소스 파일\Mesh\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Mesh.h">
+      <Filter>소스 파일\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Scene.h">
+      <Filter>소스 파일\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\ShaderProgram.h">
+      <Filter>소스 파일\ShaderProgram\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\CubeMap.h">
+      <Filter>소스 파일\Texture\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\DepthMap.h">
+      <Filter>소스 파일\Texture\DepthMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\TextureClass.h">
+      <Filter>소스 파일\Texture\Simple</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Timer.h">
+      <Filter>소스 파일\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Game.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\includeThis.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\macro.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Types.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MyInclude\Portal.h">
+      <Filter>소스 파일\Mesh\Portal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\vertex_1.glsl">
+      <Filter>소스 파일\ShaderProgram\Shaders\Main_Shader</Filter>
+    </None>
+    <None Include="Shader\vertex_cube.glsl">
+      <Filter>소스 파일\ShaderProgram\Shaders\Cube_Shader</Filter>
+    </None>
+    <None Include="Shader\fragment_cube.glsl">
+      <Filter>소스 파일\ShaderProgram\Shaders\Cube_Shader</Filter>
+    </None>
+    <None Include="Shader\fragment_1.glsl">
+      <Filter>소스 파일\ShaderProgram\Shaders\Main_Shader</Filter>
+    </None>
+    <None Include="Shader\1pass_fragment.glsl">
+      <Filter>소스 파일\ShaderProgram\Shaders\Shadow_1Pass</Filter>
+    </None>
+    <None Include="Shader\1pass_vertex.glsl">
+      <Filter>소스 파일\ShaderProgram\Shaders\Shadow_1Pass</Filter>
+    </None>
+  </ItemGroup>
+</Project>
