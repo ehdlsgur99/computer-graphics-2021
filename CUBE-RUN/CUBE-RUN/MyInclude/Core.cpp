@@ -81,7 +81,7 @@ void Single::changeScene(int sceneNum)
 	temp.vEYE = glm::vec3(0.0f,2.5f,3.0f);
 	temp.vAT = glm::vec3(0.0f,0.0,-1.0f);
 	temp.vUP = glm::vec3(0.0f, 1.0f, 0.0f);
-	temp.scroll = 6.0f;
+	temp.scroll = 11.0f;
 
 	//updateViewMat();
 	m_pScene = new Scene(sceneNum, temp);

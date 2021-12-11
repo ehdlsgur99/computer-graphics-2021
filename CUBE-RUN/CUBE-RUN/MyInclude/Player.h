@@ -27,14 +27,16 @@ private:
 	glm::vec3 m_vLeftRot;
 	glm::vec3 m_vRightRot;
 	glm::vec3 m_vBackRot;
-	glm::vec3 m_angle_x;
-	glm::vec3 m_rotate_y;
+	glm::vec3 m_rotate_x;
+	glm::vec3 m_rotate_z;
+	glm::vec3 dir;
+	int direction;
 private:
 	static glm::vec3 m_vDir;
 	static glm::vec3 m_vForward;
-
+	
 public:
-	static void input(char key);
+	void input(char key);
 	void update(float deltaTime, glm::vec3 veye);
 	void draw(unsigned int shaderNum, int textureBind);
 
@@ -42,6 +44,7 @@ public:
 	static void setForward(glm::vec3 newFow);
 	void setRotateByCamera(glm::vec3 veye);
 	float get_angle();
+	void Player_side_move(glm::vec3 move);
 public:
 	void moveBack(glm::vec3 backHow);
 

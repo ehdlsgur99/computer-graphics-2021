@@ -15,13 +15,14 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_tCamera = cam;
 
 	m_pPlane = new Cube("Objs/Cube.obj", glm::vec3(20.0f, 0.1f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f), "Texture/bg.png");
-	m_pPlayer = new Player(1.0f, glm::vec3(0.5f,0.0f,0.0f));
+	m_pPlayer = new Player(1.0f, glm::vec3(0.0f,0.0f,0.0f));
 
 	testTiles = new Tiles();
 	testTiles->init();
 
 	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
 	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
+
 }
 
 Scene::~Scene()
@@ -32,20 +33,29 @@ Scene::~Scene()
 void Scene::input()
 {
 	// player move here
-	if (GetAsyncKeyState('W') & 0x8000) Player::input('w');
-	if (GetAsyncKeyState('S') & 0x8000) Player::input('s');
-	if (GetAsyncKeyState('A') & 0x8000) Player::input('a');
-	if (GetAsyncKeyState('D') & 0x8000) Player::input('d');
+	if (GetAsyncKeyState('A') & 0x0001)
+	{
+		m_pPlayer->input('a');
+		glm::vec3 move = m_pPlayer->getTranslateVec();
+		m_pPlayer->Player_side_move(glm::vec3(move.x - 1.0f, move.y, move.z));
+	}
+	
+	if (GetAsyncKeyState('D') & 0x0001)
+	{
+		m_pPlayer->input('d');
+		glm::vec3 move = m_pPlayer->getTranslateVec();
+		m_pPlayer->Player_side_move(glm::vec3(move.x + 1.0f, move.y, move.z));
+	}
 
 	if (GetAsyncKeyState('Z') & 0x0001)
 	{
-		Player::input('z');
+		m_pPlayer->input('z');
 		m_tCamera.updatePos(m_pPlayer->angle, 30);
 		CORE->updateViewMat();
 	}
 	if (GetAsyncKeyState('X') & 0x0001)
 	{
-		Player::input('x');
+		m_pPlayer->input('x');
 		m_tCamera.updatePos(m_pPlayer->angle, 30);
 		CORE->updateViewMat();
 
@@ -65,7 +75,6 @@ void Scene::update(float frameTime)
 	// player move
 	m_pPlayer->update(frameTime, m_tCamera.getvEYE());
 	m_tCamera.setTarget(m_pPlayer->getTranslateVec());
-
 
 	//m_pPlayer->setRotateByCamera(m_tCamera.getvEYE());
 	//----------------------------------------------

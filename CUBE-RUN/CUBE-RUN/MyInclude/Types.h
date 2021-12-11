@@ -19,8 +19,7 @@ public:
 	void updatePos(float dx, float dy) {
 		yaw = dx;
 		pitch = dy;
-		printf("%f %f %f\n", yaw, pitch, 0);
-
+		
 		/*pitch = int(pitch + 90.0f) % 360 - 90.0f;
 		if (pitch > 89.0f) pitch = 89.0f;
 		else if (pitch < -89.0f) pitch = -89.0f;*/
@@ -28,8 +27,6 @@ public:
 		vEYE.x = glm::cos(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
 		vEYE.y = glm::sin(glm::radians(pitch));
 		vEYE.z = glm::sin(glm::radians(yaw)) * glm::cos(glm::radians(pitch));
-
-		
 	}
 
 	glm::mat4 getViewMat() const {

@@ -7,12 +7,14 @@ glm::vec3 Player::m_vForward = glm::vec3(0.0f, 0.0f, 1.0f);
 float Player::angle(0);
 
 Player::Player(float size, glm::vec3 pivot) :
-	Mesh("Objs/Cube.obj", glm::vec3(1.0f)* size, glm::vec3(0.0f), (pivot)+glm::vec3(0.0f, 1.0f, 0.0f) * size),
+	Mesh("Objs/Cube.obj", glm::vec3(1.0f)* size, glm::vec3(0.0f), (pivot)+glm::vec3(1.0f, 1.0f, 0.0f) * size),
 	m_vRightRot(glm::vec3(0.0f)),
 	m_vLeftRot(glm::vec3(0.0f)),
 	m_vBackRot(glm::vec3(20.0f, 0.0f, 0.0f)),
-	m_angle_x(glm::vec3(0.0f)),
-	m_rotate_y(glm::vec3(0.0f))
+	m_rotate_x(glm::vec3(0.0f)),
+	m_rotate_z(glm::vec3(0.0f)),
+	dir(glm::vec3(0.0f)),
+	direction (0)
 {
 	m_pBody = new Mesh("Objs/Cube.obj", glm::vec3(1.0f) * size, glm::vec3(0.0f), pivot + glm::vec3(0.0f, 0.0f, 0.0f) * size);
 
@@ -29,25 +31,33 @@ Player::~Player()
 
 void Player::input(char key)
 {
-	glm::vec3 dir(0.0f);
-	
 	switch (key) {
-	case 'w':	dir = m_vForward;	break;
-	case 's':	dir = -m_vForward;	break;
-	case 'a':	dir = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);		break;
-	case 'd':	dir = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);	break;
-	case 'z':
-		angle -= 90.0f;
-		//if (angle <= 0.0f) angle = 360.0f;
-		
-		dir = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);
-		break;
-	case 'x':
-		angle += 90.0f;
-		//if (angle >= 360.0f) angle = 0.0f;
-	dir = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);
+	case 'a':
+	{
+		dir = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);	
 		break;
 	}
+	case 'd':
+	{
+		dir = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);	
+		break;
+	}
+	case 'z':
+		direction--;
+		if (direction <= -1) direction = 3;
+		angle -= 90.0f;
+		dir = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1.0f, 0.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);
+		//this->setRotate(glm::vec3(0.0f,90.0f,0.0f));
+		break;
+	case 'x':
+		direction++;
+		direction = direction % 4;
+		angle += 90.0f;
+		dir = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1.0f, 0.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);
+		//this->setRotate(glm::vec3(0.0f,-90.0f,0.0f));
+		break;
+	}
+	printf("%d\n", direction);
 	m_vDir = glm::normalize(m_vDir + dir);
 }
 
@@ -57,25 +67,36 @@ void Player::update(float deltaTime,glm::vec3 veye)
 	static float fRotateSpeed = 100.0f;
 	static bool bIncreaseFront = true;
 	static bool bIncreaseBack = false;
+	glm::vec3 rotate = glm::vec3(0.0f);
 
-	glm::vec3 dir(0.0f);
-	dir = m_vForward;
-	m_vDir = glm::normalize(m_vDir + dir);
-
-	glm::vec3 rotate_y = glm::vec3(0.0f, 1.0f, 0.0f);
-	rotate_y *= angle;
-	this->setRotate(rotate_y);
-
-	glm::vec3 rotate = glm::vec3(1.0f, 0.0f, 0.0f);
-	m_angle_x -= rotate * fRotateSpeed * deltaTime;
-	if (m_angle_x.x <= 0.0f) m_angle_x.x = 360;
-	this->setRotate(m_angle_x);
-
-	glm::vec3 offset = m_vDir * fMoveSpeed * deltaTime;
-	this->setTranslate(m_vPivot + offset);
-
+	switch (direction)
+	{
+	case 0:
+		rotate = glm::vec3(0.0f, 0.0f, 1.0f);
+		m_rotate_z += rotate * fRotateSpeed * deltaTime;
+		this->setRotate(m_rotate_z);
+		break;
+	case 1:
+		rotate = glm::vec3(1.0f, 0.0f, 0.0f);
+		m_rotate_x -= rotate * fRotateSpeed * deltaTime;
+		this->setRotate(m_rotate_x);
+		break;
+	case 2:
+		rotate = glm::vec3(0.0f, 0.0f, 1.0f);
+		m_rotate_z -= rotate * fRotateSpeed * deltaTime;
+		this->setRotate(m_rotate_z);
+		break;
+	case 3:
+		rotate = glm::vec3(1.0f, 0.0f, 0.0f);
+		m_rotate_x += rotate * fRotateSpeed * deltaTime;
+		this->setRotate(m_rotate_x);
+		break;
+	}
 	
 
+	m_vDir = m_vForward;
+	glm::vec3 offset = m_vDir * fMoveSpeed * deltaTime;
+	this->setTranslate(m_vPivot + offset);
 	
 }
 
@@ -116,3 +137,7 @@ float Player::get_angle()
 }
 
 
+void Player::Player_side_move(glm::vec3 move)
+{
+	this->setTranslate(move);
+}
