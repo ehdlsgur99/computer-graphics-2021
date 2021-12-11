@@ -5,6 +5,7 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 	this->tileType = tileType;
 	this->startPos = startPos;
 	this->createDirection = createPos;
+
 	
 
 	if (tileType == eTileType::eDirect)
@@ -23,18 +24,38 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 
 				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/bg.png");	
 				cubes.push_back(cube);
+				cubeTypes.push_back(eCubeNormal);
 			}
 		}
-		// 0= ÇÑÄ­ Àå¾Ö¹°
-		// 1= °¡·Î µÎÄ­ Àå¾Ö¹° 2= ¼¼·Î µÎÄ­ Àå¾Ö¹° 3= °¡·Î ¼¼Ä­ Àå¾Ö¹°
-		int random = rand() % 4;
-	/*	if (random == 0)
-		{*/
-			if (rand() % 2 == 0)
-				cubes[rand() % 17]->setTranslate(glm::vec3(cubes[rand() % 17]->getTranslateVec().x + 0.0f, cubes[rand() % 17]->getTranslateVec().y +1.0f, cubes[rand() % 17]->getTranslateVec().z + 0.0));
-			else
-				cubes[rand() % 17]->setTranslate(glm::vec3(cubes[rand() % 17]->getTranslateVec().x + 0.0f, cubes[rand() % 17]->getTranslateVec().y -1.0f, cubes[rand() % 17]->getTranslateVec().z + 0.0));
-		//}
+		// 0 = ÇÑÄ­ Àå¾Ö¹°
+		// 1 = °¡·Î µÎÄ­ Àå¾Ö¹° 2 = ¼¼·Î µÎÄ­ Àå¾Ö¹° 3 = °¡·Î ¼¼Ä­ Àå¾Ö¹°
+		int random = rand() % 3;
+
+		if (random == 0)
+			cubeTypes[rand() % 17] = eCubeType::eCubeUp;
+			else if (random == 1)
+			cubeTypes[rand() % 17] = eCubeType::eCubeDown;
+		//cubes[rand() % 17]->setTranslate(glm::vec3(cubes[rand() % 17]->getTranslateVec().x + 0.0f, cubes[rand() % 17]->getTranslateVec().y -1.0f, cubes[rand() % 17]->getTranslateVec().z + 0.0));
+		else if (random == 2)
+		{
+			cubeTypes[rand() % 17] = eCubeType::eCubeCoin;
+		}
+		for (int i = 0; i < cubes.size(); i++)
+		{
+			if (cubeTypes[i] == eCubeUp)
+			{
+				cubes[i]->setTranslate(glm::vec3(cubes[i]->getTranslateVec().x + 0.0f, cubes[i]->getTranslateVec().y +1.0f, cubes[i]->getTranslateVec().z + 0.0));
+			}
+			else if (cubeTypes[i] == eCubeDown)
+			{
+				cubes[i]->setTranslate(glm::vec3(cubes[i]->getTranslateVec().x + 0.0f, cubes[i]->getTranslateVec().y - 1.0f, cubes[i]->getTranslateVec().z + 0.0));
+			}
+			else if (cubeTypes[i] == eCubeCoin)
+			{
+				Cube* coin = new Cube("Objs/cube.obj", glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(glm::vec3(cubes[i]->getTranslateVec().x + 0.0f, cubes[i]->getTranslateVec().y + 1.0f, cubes[i]->getTranslateVec().z + 0.0)), "Texture/300coin.png");
+				coins.push_back(coin);
+			}
+		}
 	}
 	else
 	{
@@ -60,6 +81,11 @@ void Tile::draw(unsigned int shaderNum, int bindTex)
 	for (int i = 0; i < cubes.size(); i++)
 	{
 		cubes[i]->draw(shaderNum, bindTex);
+	}
+
+	for (int i = 0; i < coins.size(); i++)
+	{
+		coins[i]->draw(shaderNum, bindTex);
 	}
 }
 

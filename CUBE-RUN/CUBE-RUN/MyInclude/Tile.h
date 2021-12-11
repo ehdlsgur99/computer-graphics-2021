@@ -13,7 +13,7 @@ class TextureClass;
 
 enum eTileType { eDirect = 0, eLeftTurn, eRightTurn };
 enum eCreatePos {eUp = 0, eLeft, eRight, eDown};
-enum eCubeType {eCubeUp = 0, eCubeDown, eCubeCoin};
+enum eCubeType {eCubeNormal = 0, eCubeUp, eCubeDown, eCubeCoin};
 
 class Tile
 {
@@ -22,6 +22,8 @@ public:
 	glm::vec3 startPos;			// startPos는 이전 타일 좌측 하단을 기준
 	eCreatePos createDirection;
 	std::vector<Cube*> cubes;
+	std::vector<eCubeType> cubeTypes;
+	std::vector<Cube*> coins;
 public:
 	void init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos);
 	void update();
