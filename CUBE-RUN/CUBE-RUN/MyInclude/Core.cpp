@@ -74,14 +74,16 @@ void Single::run()
 void Single::changeScene(int sceneNum)
 {
 	if (!m_pScene) delete m_pScene;
+
 	CameraVectors temp;
-	temp.pitch = 45.0f;
-	temp.yaw = 45.0f;
-	temp.vEYE = glm::vec3(1.0f);
-	temp.vAT = glm::vec3(0.0f);
+	temp.pitch = 0.0f;
+	temp.yaw = 0.0f;
+	temp.vEYE = glm::vec3(0.0f,2.0f,-3.0f);
+	temp.vAT = glm::vec3(0.0f,0.0,1.0f);
 	temp.vUP = glm::vec3(0.0f, 1.0f, 0.0f);
 	temp.scroll = 5.0f;
 
+	//updateViewMat();
 	m_pScene = new Scene(sceneNum, temp);
 
 	if (sceneNum) updateViewMat();
@@ -108,7 +110,7 @@ void Single::initializeProgram()
 
 	// proj mat
 	glm::mat4 projectionMat =
-		glm::perspective(glm::radians(45.0f), float(m_tWndSize.cx) / float(m_tWndSize.cy), 0.1f, 300.0f);
+		glm::perspective(glm::radians(90.0f), float(m_tWndSize.cx) / float(m_tWndSize.cy), 0.1f, 300.0f);
 	m_pMainShader->setMat4("projectionTransform", projectionMat);
 
 	// view mat

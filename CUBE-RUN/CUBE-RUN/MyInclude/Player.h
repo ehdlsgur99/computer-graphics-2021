@@ -13,11 +13,6 @@ private:
 	TextureClass* m_pTextureLeg;
 
 	Mesh* m_pBody;
-	Mesh* m_pLeftLeg;
-	Mesh* m_pRightLeg;
-	Mesh* m_pBackLeg;
-
-	Mesh* m_pGun;
 public:
 	Player() = delete;
 	Player(float size, glm::vec3 pivot);
@@ -27,24 +22,25 @@ private:
 	bool m_bAlive = false;
 
 public:
-
+	float angle;
 private:
 	glm::vec3 m_vLeftRot;
 	glm::vec3 m_vRightRot;
 	glm::vec3 m_vBackRot;
-
+	glm::vec3 m_angle_y;
 private:
 	static glm::vec3 m_vDir;
 	static glm::vec3 m_vForward;
 
 public:
 	static void input(char key);
-	void update(float deltaTime);
+	void update(float deltaTime, glm::vec3 veye);
 	void draw(unsigned int shaderNum, int textureBind);
 
 	static void setDirZero();
 	static void setForward(glm::vec3 newFow);
-
+	void setRotateByCamera(glm::vec3 veye);
+	float get_angle();
 public:
 	void moveBack(glm::vec3 backHow);
 
