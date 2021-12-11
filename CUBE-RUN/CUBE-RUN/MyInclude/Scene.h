@@ -2,10 +2,13 @@
 
 #include "Game.h"
 
+
 class Player;
 class Mesh;
 class Cube;
 class Portal;
+class Tile;
+class Tiles;
 
 class Scene {
 private:
@@ -15,13 +18,15 @@ private:
 
 public:
 	CameraVectors m_tCamera;
-
+	Player* m_pPlayer;
 private:
 	Cube* m_pPlane;
 	Cube* m_pWall[4];
 	Portal* m_pPortal[2];
 
-	Player* m_pPlayer;
+	Tiles* testTiles;
+
+	
 
 public:
 	Scene() = delete;

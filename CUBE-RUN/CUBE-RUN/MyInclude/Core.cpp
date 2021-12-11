@@ -76,12 +76,12 @@ void Single::changeScene(int sceneNum)
 	if (!m_pScene) delete m_pScene;
 
 	CameraVectors temp;
-	temp.pitch = 0.0f;
+	temp.pitch = 1.0f;
 	temp.yaw = 0.0f;
-	temp.vEYE = glm::vec3(0.0f,2.0f,-3.0f);
-	temp.vAT = glm::vec3(0.0f,0.0,1.0f);
+	temp.vEYE = glm::vec3(0.0f,2.5f,3.0f);
+	temp.vAT = glm::vec3(0.0f,0.0,-1.0f);
 	temp.vUP = glm::vec3(0.0f, 1.0f, 0.0f);
-	temp.scroll = 5.0f;
+	temp.scroll = 6.0f;
 
 	//updateViewMat();
 	m_pScene = new Scene(sceneNum, temp);
@@ -283,6 +283,7 @@ void Single::gameLoop()
 
 	CORE->m_pScene->input();
 	CORE->m_pScene->update(deltaTime);
+	CORE->updateViewMat();
 	glutPostRedisplay();			// draw
 
 	CORE->m_pTimer->updateDeltaTime();

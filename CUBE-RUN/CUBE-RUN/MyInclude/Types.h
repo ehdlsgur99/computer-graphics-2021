@@ -17,8 +17,8 @@ public:
 
 public:
 	void updatePos(float dx, float dy) {
-		yaw -= dx;
-		pitch -= dy;
+		yaw = dx;
+		pitch = dy;
 		printf("%f %f %f\n", yaw, pitch, 0);
 
 		/*pitch = int(pitch + 90.0f) % 360 - 90.0f;
@@ -39,5 +39,9 @@ public:
 	glm::vec3 getvEYE() const {
 		glm::vec3 veye = glm::vec3(yaw, pitch,0.0f);
 		return veye;
+	}
+
+	void setTarget(glm::vec3 target) {
+		vAT = target;
 	}
 };

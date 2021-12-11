@@ -22,12 +22,13 @@ private:
 	bool m_bAlive = false;
 
 public:
-	float angle;
+	static float angle;
 private:
 	glm::vec3 m_vLeftRot;
 	glm::vec3 m_vRightRot;
 	glm::vec3 m_vBackRot;
-	glm::vec3 m_angle_y;
+	glm::vec3 m_angle_x;
+	glm::vec3 m_rotate_y;
 private:
 	static glm::vec3 m_vDir;
 	static glm::vec3 m_vForward;

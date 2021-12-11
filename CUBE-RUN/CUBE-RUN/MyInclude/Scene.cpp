@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "RotatingCube.h"
 #include "Portal.h"
+#include "Tile.h"
+#include "Tiles.h"
 
 Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_pPortal{nullptr, nullptr},
@@ -13,15 +15,13 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_tCamera = cam;
 
 	m_pPlane = new Cube("Objs/Cube.obj", glm::vec3(20.0f, 0.1f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f), "Texture/bg.png");
-	m_pPlayer = new Player(1.5f, glm::vec3(0.0f));
+	m_pPlayer = new Player(1.0f, glm::vec3(0.5f,0.0f,0.0f));
 
-	//m_pWall[0] = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 90.0f), glm::vec3(-10.0f,5.0f,0.0f), "Texture/bg.png");	// /로/봇이 바라보는 방향 기준 오른쪽 벽
-	//m_pWall[1] = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 90.0f), glm::vec3(10.0f,5.0f,0.0f), "Texture/bg.png");	// /로/봇이 바라보는 방향 기준 왼쪽 벽
-	//m_pWall[2] = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), glm::vec3(0.0f,5.0f, -10.0f), "Texture/bg.png");	// 
-	//m_pWall[3] = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 10.0f), "Texture/bg.png");
-	//
-	//m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
-	//m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
+	testTiles = new Tiles();
+	testTiles->init();
+
+	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
+	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
 }
 
 Scene::~Scene()
@@ -40,16 +40,17 @@ void Scene::input()
 	if (GetAsyncKeyState('Z') & 0x0001)
 	{
 		Player::input('z');
-		m_tCamera.updatePos(-90.0f, 0);
+		m_tCamera.updatePos(m_pPlayer->angle, 30);
 		CORE->updateViewMat();
 	}
 	if (GetAsyncKeyState('X') & 0x0001)
 	{
 		Player::input('x');
-		m_tCamera.updatePos(90.0f, 0);
+		m_tCamera.updatePos(m_pPlayer->angle, 30);
 		CORE->updateViewMat();
 
 	}
+	if (GetAsyncKeyState('C') & 0x8000) testTiles->createTile();
 }
 
 void Scene::update(float frameTime)
@@ -63,6 +64,9 @@ void Scene::update(float frameTime)
 	//----------------------------------------------
 	// player move
 	m_pPlayer->update(frameTime, m_tCamera.getvEYE());
+	m_tCamera.setTarget(m_pPlayer->getTranslateVec());
+
+
 	//m_pPlayer->setRotateByCamera(m_tCamera.getvEYE());
 	//----------------------------------------------
 	// cubes rotate
@@ -92,6 +96,8 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 	// draw all
 	m_pPlane->draw(shaderNum, textureBind);
 	m_pPlayer->draw(shaderNum, textureBind);
+
+	testTiles->draw(shaderNum, textureBind);
 }
 
 void Scene::drawPortal(unsigned int shaderNum, int textureBind)

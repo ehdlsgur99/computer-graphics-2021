@@ -152,6 +152,8 @@
     <ClCompile Include="MyInclude\Scene.cpp" />
     <ClCompile Include="MyInclude\ShaderProgram.cpp" />
     <ClCompile Include="MyInclude\TextureClass.cpp" />
+    <ClCompile Include="MyInclude\Tile.cpp" />
+    <ClCompile Include="MyInclude\Tiles.cpp" />
     <ClCompile Include="MyInclude\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +170,8 @@
     <ClInclude Include="MyInclude\Scene.h" />
     <ClInclude Include="MyInclude\ShaderProgram.h" />
     <ClInclude Include="MyInclude\TextureClass.h" />
+    <ClInclude Include="MyInclude\Tile.h" />
+    <ClInclude Include="MyInclude\Tiles.h" />
     <ClInclude Include="MyInclude\Timer.h" />
     <ClInclude Include="MyInclude\Types.h" />
   </ItemGroup>
