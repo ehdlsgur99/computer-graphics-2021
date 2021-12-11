@@ -2,10 +2,13 @@
 
 #include "Game.h"
 
+
 class Player;
 class Mesh;
 class Cube;
 class Portal;
+class Tile;
+class Tiles;
 
 class Scene {
 private:
@@ -20,6 +23,8 @@ private:
 	Cube* m_pPlane;
 	Cube* m_pWall[4];
 	Portal* m_pPortal[2];
+
+	Tiles* testTiles;
 
 	Player* m_pPlayer;
 

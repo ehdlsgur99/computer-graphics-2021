@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "RotatingCube.h"
 #include "Portal.h"
+#include "Tile.h"
+#include "Tiles.h"
 
 Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_pPortal{nullptr, nullptr},
@@ -19,6 +21,9 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_pWall[1] = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 90.0f), glm::vec3(10.0f,5.0f,0.0f), "Texture/bg.png");	// 로봇이 바라보는 방향 기준 왼쪽 벽
 	m_pWall[2] = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), glm::vec3(0.0f,5.0f, -10.0f), "Texture/bg.png");	// 
 	m_pWall[3] = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(90.0f, 0.0f, 0.0f), glm::vec3(0.0f, 5.0f, 10.0f), "Texture/bg.png");
+
+	testTiles = new Tiles();
+	testTiles->init();
 
 	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
 	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
@@ -45,6 +50,7 @@ void Scene::input()
 	if (GetAsyncKeyState('S') & 0x8000) Player::input('s');
 	if (GetAsyncKeyState('A') & 0x8000) Player::input('a');
 	if (GetAsyncKeyState('D') & 0x8000) Player::input('d');
+	if (GetAsyncKeyState('C') & 0x8000) testTiles->createTile();
 }
 
 void Scene::update(float frameTime)
@@ -96,6 +102,8 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 
 	m_pPortal[0]->draw(shaderNum, textureBind);
 	m_pPortal[1]->draw(shaderNum, textureBind);
+
+	testTiles->draw(shaderNum, textureBind);
 
 }
 
