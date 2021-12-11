@@ -7,7 +7,7 @@ class TextureClass;
 
 // body is main
 class Player : public Mesh {
-private:
+//private:
 	// body
 	TextureClass* m_pTextureBody;
 	TextureClass* m_pTextureLeg;

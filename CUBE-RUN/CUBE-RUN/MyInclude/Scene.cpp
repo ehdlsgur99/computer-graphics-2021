@@ -5,6 +5,7 @@
 #include "RotatingCube.h"
 #include "Portal.h"
 #include "Tile.h"
+#include "CollisionManager.h"
 #include "Tiles.h"
 
 Scene::Scene(int sceneNum, CameraVectors& cam) :
@@ -97,6 +98,8 @@ void Scene::update(float frameTime)
 	//CORE->updateViewMat();
 
 	// set Player Dir to zero
+
+	CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
 	Player::setDirZero();
 }
 
