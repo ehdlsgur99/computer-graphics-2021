@@ -5,7 +5,11 @@
 *.slo
 *.lo
 *.o
-.vs
+.vs/
+**/Debug
+**/x64/
+**/Release/
+**/x86/
 
 # Precompiled Headers
 *.gch
