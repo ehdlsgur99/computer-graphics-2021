@@ -2,7 +2,8 @@
 
 ParticleManager::ParticleManager()
 {
-
+	createParticle(glm::vec3(-100,0,0), 0);
+	createParticle(glm::vec3(-100, 0, 0), 1);
 }
 
 ParticleManager::~ParticleManager()

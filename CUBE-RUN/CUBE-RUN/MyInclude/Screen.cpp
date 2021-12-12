@@ -16,6 +16,7 @@ void Screen::init()
 {
 	gameStartCube = new Cube("Objs/Cube.obj", glm::vec3(10.0f, 5.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), screenPos, "Texture/start.png");
 	gameOverCube = new Cube("Objs/Cube.obj", glm::vec3(10.0f, 5.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), screenPos, "Texture/over.png");
+	time = 0;
 }
 
 void Screen::update()
@@ -36,6 +37,8 @@ void Screen::update()
 
 void Screen::draw(unsigned int shaderNum, int bindTex)
 {
+	if (GetTickCount() - time < 1000.0f)
+		return;
 	if (nowScreenState == eScreenState::eGameOver)
 	{
 		gameOverCube->draw(shaderNum, bindTex);
@@ -64,11 +67,13 @@ void Screen::changeState(int state, Player *player)
 	if (nowScreenState == eScreenState::eGameOver)
 	{
 		screenPos.y += 5.0f;
+		time = GetTickCount();
 		popupGameOver();
 	}
 	else if (nowScreenState == eScreenState::eGameStart)
 	{
 		screenPos.y += 10.0f;
+		time = GetTickCount();
 		popupGameStart();
 	}
 }

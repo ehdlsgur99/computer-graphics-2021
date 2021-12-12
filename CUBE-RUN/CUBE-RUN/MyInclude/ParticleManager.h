@@ -15,6 +15,7 @@ public:
 	float time;	// 일정 시간 지나면 사라짐
 	std::vector<Particle> p;
 	bool isVisible;
+
 public:
 	ParticleManager();
 	~ParticleManager();

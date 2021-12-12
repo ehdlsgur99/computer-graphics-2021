@@ -13,6 +13,7 @@ public:
 	Cube* gameOverCube;
 	Cube* gameStartCube;
 	glm::vec3 screenPos;
+	float time;
 public:
 	Screen();
 	~Screen();
