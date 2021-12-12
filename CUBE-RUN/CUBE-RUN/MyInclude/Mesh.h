@@ -4,7 +4,7 @@
 
 
 class Mesh {
-protected:
+public:
 	GLuint m_iVAO = 0;
 	GLuint m_iVBO;
 

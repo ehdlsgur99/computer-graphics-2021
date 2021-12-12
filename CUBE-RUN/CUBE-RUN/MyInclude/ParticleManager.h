@@ -14,10 +14,11 @@ public:
 	glm::vec3 pos;
 	float time;	// 일정 시간 지나면 사라짐
 	std::vector<Particle> p;
+	bool isVisible;
 public:
 	ParticleManager();
 	~ParticleManager();
 	void createParticle(glm::vec3 vec);
 	bool Update(float time_);
-	void Draw(float angle,  int numTriangle);
+	void Draw(float angle,  int numTriangle, int sNum, int bindTex);
 };

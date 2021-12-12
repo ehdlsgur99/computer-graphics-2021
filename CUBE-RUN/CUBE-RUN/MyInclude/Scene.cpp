@@ -37,14 +37,14 @@ Scene::~Scene()
 void Scene::input()
 {
 	// player move here
-	if (GetAsyncKeyState('A') & 0x0001)
+	if (GetAsyncKeyState('A') & 0x8000)
 	{
 		m_pPlayer->input('a');
 		glm::vec3 move = m_pPlayer->getTranslateVec();
 		m_pPlayer->Player_side_move('a');
 	}
 	
-	if (GetAsyncKeyState('D') & 0x0001)
+	if (GetAsyncKeyState('D') & 0x8000)
 	{
 		m_pPlayer->input('d');
 		glm::vec3 move = m_pPlayer->getTranslateVec();
@@ -63,6 +63,10 @@ void Scene::input()
 		m_tCamera.updatePos(m_pPlayer->angle, 30);
 		CORE->updateViewMat();
 
+	}
+	if (GetAsyncKeyState(VK_SPACE) & 0x0001)
+	{
+		m_pPlayer->input(VK_SPACE);
 	}
 	if (GetAsyncKeyState('C') & 0x8000) testTiles->createTile();
 	if (GetAsyncKeyState('P') & 0x8000) m_pPlayer->getCoin();
@@ -83,7 +87,7 @@ void Scene::update(float frameTime)
 	
 
 	CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
-	ParticleManager::GetInstance()->Update(0.01f);
+	ParticleManager::GetInstance()->Update(0.1f);
 	Player::setDirZero();
 }
 
@@ -95,7 +99,7 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 
 	testTiles->draw(shaderNum, textureBind);
 
-	ParticleManager::GetInstance()->Draw(30.0f, 36);
+	ParticleManager::GetInstance()->Draw(90.0f, 36, shaderNum, textureBind);
 }
 
 void Scene::drawPortal(unsigned int shaderNum, int textureBind)
@@ -135,4 +139,10 @@ glm::mat4 Scene::getPortalView(Portal* from, Portal* dist)
 		glm::inverse(dist->getModelTransform());
 
 	return portalCam;
+}
+
+
+glm::vec3 Scene::get_player_pos()
+{
+	return m_pPlayer->getTranslateVec();
 }

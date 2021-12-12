@@ -15,7 +15,11 @@ Player::Player(float size, glm::vec3 pivot) :
 	m_rotate_x(glm::vec3(0.0f)),
 	m_rotate_z(glm::vec3(0.0f)),
 	dir(glm::vec3(0.0f)),
-	direction (0)
+	direction (0),
+	isjump(false),
+	max_jump_height(7.0f),
+	org_pos(glm::vec3(0.0f)),
+	jumpdir(true)
 {
 	m_pBody = new Mesh("Objs/Cube.obj", glm::vec3(1.0f) * size, glm::vec3(0.0f), pivot + glm::vec3(0.0f, 0.0f, 0.0f) * size);
 
@@ -57,15 +61,23 @@ void Player::input(char key)
 		dir = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(1.0f, 0.0f, 0.0f)) * glm::vec4(m_vForward, 0.0f);
 		//this->setRotate(glm::vec3(0.0f,-90.0f,0.0f));
 		break;
+	case VK_SPACE:
+		if (isjump == false)
+		{
+			isjump = true;
+			jumpdir = true;
+			org_pos = this->getTranslateVec();
+		}
+		break;
 	}
-	printf("%d\n", direction);
+	
 	m_vDir = glm::normalize(m_vDir + dir);
 }
 
 void Player::update(float deltaTime)
 {
-	static float fMoveSpeed = 1.0f;
-	static float fRotateSpeed = 100.0f;
+	static float fMoveSpeed = 5.0f;
+	static float fRotateSpeed = 400.0f;
 	static bool bIncreaseFront = true;
 	static bool bIncreaseBack = false;
 	glm::vec3 rotate = glm::vec3(0.0f);
@@ -99,7 +111,7 @@ void Player::update(float deltaTime)
 	glm::vec3 offset = m_vDir * fMoveSpeed * deltaTime;
 	this->setTranslate(m_vPivot + offset);
 
-
+	jump(deltaTime);
 }
 
 void Player::setRotateByCamera(glm::vec3 veye)
@@ -150,27 +162,66 @@ void Player::Player_side_move(char key)
 	switch (direction)
 	{
 	case 1:
-		if (key == 'a') move.x = -1;
-		if (key == 'd') move.x = 1;
+		if (key == 'a') move.x = -SIDE_MOVE_SPEED;
+		if (key == 'd') move.x = SIDE_MOVE_SPEED;
 		break;
 	case 3:
-		if (key == 'a') move.x = 1;
-		if (key == 'd') move.x = -1;
+		if (key == 'a') move.x = SIDE_MOVE_SPEED;
+		if (key == 'd') move.x = -SIDE_MOVE_SPEED;
 		break;
 	case 0:
-		if (key == 'a') move.z = 1;
-		if (key == 'd') move.z = -1;
+		if (key == 'a') move.z = SIDE_MOVE_SPEED;
+		if (key == 'd') move.z = -SIDE_MOVE_SPEED;
 		break;
 	case 2:
-		if (key == 'a') move.z = -1;
-		if (key == 'd') move.z = 1;
+		if (key == 'a') move.z = -SIDE_MOVE_SPEED;
+		if (key == 'd') move.z = SIDE_MOVE_SPEED;
 		break;
 	}
 	glm::vec3 gettransfrom = this->getTranslateVec();
 	this->setTranslate(glm::vec3(gettransfrom.x + move.x, gettransfrom.y + move.y, gettransfrom.z + move.z));
 }
 
+
 void Player::getCoin()
 {
 	ParticleManager::GetInstance()->createParticle(this->getTranslateVec());
+}
+
+void Player::jump(float dt)
+{
+	static float jump_speed = 3.0f;
+	static float up = 0;
+	
+	if (isjump == true)
+	{
+		if (jumpdir)
+		{
+			glm::vec3 pos = this->getTranslateVec();
+			up += jump_speed * dt;
+			this->setTranslate(glm::vec3(pos.x, pos.y + up, pos.z));
+
+			pos = this->getTranslateVec();
+			if (pos.y >= max_jump_height)
+			{
+				jumpdir = false;
+				up = 0;
+			}
+		}
+		else if (jumpdir == false)
+		{
+			glm::vec3 pos = this->getTranslateVec();
+			up += jump_speed * dt;
+			this->setTranslate(glm::vec3(pos.x, pos.y - up, pos.z));
+
+			pos = this->getTranslateVec();
+			if (pos.y <= org_pos.y)
+			{
+				this->setTranslate(glm::vec3(pos.x, org_pos.y, pos.z));
+				jumpdir = true;
+				isjump = false;
+				up = 0;
+			}
+		}
+	}
 }

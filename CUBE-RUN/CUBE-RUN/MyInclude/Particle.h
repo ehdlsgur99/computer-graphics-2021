@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "Singleton.h"
+#include "Cube.h"
 
 
 
@@ -17,13 +18,13 @@ private:
 	float r, g, b, a;
 	float size;
 
-	GLuint vao;
-	GLuint vbo[2];
+	Cube* coinParticle;
 public:
 	Particle();
 	~Particle() = default;
 
 	void Update(float deltaTime);
+	void init();
 
-	void Draw(glm::vec3 pos, float ch_angle, unsigned int modelLocation, unsigned int colorLocation, int numTriangle);
+	void Draw(glm::vec3 pos, int sNum, int bindTex, float ch_angle, unsigned int modelLocation, unsigned int colorLocation, int numTriangle);
 };
