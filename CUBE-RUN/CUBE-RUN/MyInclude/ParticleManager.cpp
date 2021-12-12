@@ -10,7 +10,7 @@ ParticleManager::~ParticleManager()
 
 }
 
-void ParticleManager::createParticle(glm::vec3 vec)
+void ParticleManager::createParticle(glm::vec3 vec,int type)
 {
 	isVisible = true;
 	pos = vec;
@@ -19,14 +19,14 @@ void ParticleManager::createParticle(glm::vec3 vec)
 	{
 		for (int i = 0; i < 100; ++i)
 		{
-			p[i].init();
+			p[i].init(type);
 		}
 	}
 	else
 	{
 		for (int i = 0; i < 100; ++i)
 		{
-			p.push_back(Particle());
+			p.push_back(Particle(type));
 		}
 	}
 

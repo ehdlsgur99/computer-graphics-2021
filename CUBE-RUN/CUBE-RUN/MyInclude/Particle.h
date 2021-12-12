@@ -17,14 +17,16 @@ private:
 	float angle;
 	float r, g, b, a;
 	float size;
+	int Ptype;
 
 	Cube* coinParticle;
+	Cube* PlayerDestroyParticle;
 public:
-	Particle();
+	Particle(int type);
 	~Particle() = default;
 
 	void Update(float deltaTime);
-	void init();
+	void init(int type);
 
 	void Draw(glm::vec3 pos, int sNum, int bindTex, float ch_angle, unsigned int modelLocation, unsigned int colorLocation, int numTriangle);
 };

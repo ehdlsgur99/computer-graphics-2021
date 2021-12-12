@@ -25,9 +25,10 @@ public:
 
 private:
 	bool m_bAlive = false;
-
 public:
 	static float angle;
+	bool life = true;
+	bool invincibility = false;
 private:
 	glm::vec3 m_vLeftRot;
 	glm::vec3 m_vRightRot;
@@ -36,9 +37,9 @@ private:
 	glm::vec3 m_rotate_z;
 	glm::vec3 dir;
 	int direction;
+	int GameOverType;
 	bool jumpdir;
 	bool isjump;
-	bool life = true;
 	float max_jump_height;
 	glm::vec3 org_pos;
 private:
@@ -52,6 +53,7 @@ public:
 
 	// coin 획득하면 발생하는 파티클
 	void getCoin();
+	void destroyparticle();
 
 	static void setDirZero();
 	static void setForward(glm::vec3 newFow);
@@ -61,7 +63,8 @@ public:
 	void jump(float dt);
 public:
 	void moveBack(glm::vec3 backHow);
-	void GameOver(int type);
+	void collision(int type);
+	void GameOver(float dt);
 
 };
 

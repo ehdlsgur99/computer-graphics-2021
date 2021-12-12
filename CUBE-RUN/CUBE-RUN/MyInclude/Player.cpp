@@ -116,8 +116,7 @@ void Player::update(float deltaTime)
 	}
 	else if (life == false) //게임오버
 	{
-		glm::vec3 pos = this->getTranslateVec();
-		this->setTranslate(glm::vec3(pos.x, pos.y - fMoveSpeed*2 * deltaTime, pos.z));
+		GameOver(deltaTime);
 	}
 
 	
@@ -194,7 +193,12 @@ void Player::Player_side_move(char key)
 
 void Player::getCoin()
 {
-	ParticleManager::GetInstance()->createParticle(this->getTranslateVec());
+	ParticleManager::GetInstance()->createParticle(this->getTranslateVec(),0);
+}
+
+void Player::destroyparticle()
+{
+	ParticleManager::GetInstance()->createParticle(this->getTranslateVec(), 1);
 }
 
 void Player::jump(float dt)
@@ -235,23 +239,29 @@ void Player::jump(float dt)
 	}
 }
 
-void Player::GameOver(int type)
+void Player::GameOver(float dt)
 {
 	// 큐브 정지
 	// 0 = down 1 = up
 	// 2 = 장외탈락
-	life = false;
+	static float fMoveSpeed = 5.0f;
 	
-	if (type == 0)
+	if (GameOverType == 0)
 	{
-		life = false;
+		glm::vec3 pos = this->getTranslateVec();
+		this->setTranslate(glm::vec3(pos.x, pos.y - fMoveSpeed * 2 * dt, pos.z));
 	}
-	else if (type == 1)
+	else if (GameOverType == 1)
 	{
-
-	}
-	else if (type == 2)
-	{
-
+		this->setTranslate(glm::vec3(0, 0, 0));
 	}
 }
+
+void Player::collision(int type)
+{
+	if (invincibility) return; //무적상태
+
+	life = false;
+	GameOverType = type;
+}
+
