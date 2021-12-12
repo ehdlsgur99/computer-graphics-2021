@@ -15,7 +15,7 @@ private:
 	bool m_bDragging = false;
 	POINT m_tBefPoint = { 0,0 };
 	int m_iSceneNum;
-
+	bool start_update_viewmat = false;
 public:
 	CameraVectors m_tCamera;
 	Player* m_pPlayer;
