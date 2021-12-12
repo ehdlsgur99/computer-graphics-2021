@@ -295,7 +295,7 @@ void Single::gameLoop()
 void Single::update_lightpos()
 {
 	glm::vec3 viewPos = m_pScene->m_tCamera.vEYE;
-	m_vLightPos = glm::vec3(m_pScene->m_tCamera.get_camera_pos() * 0.0f);
+	m_vLightPos = glm::vec3(m_pScene->m_tCamera.get_camera_pos() * 1.0f);
 	m_vLightColor = glm::vec3(1.0f);
 
 	m_pMainShader->setVec3("viewPos", viewPos);
@@ -307,7 +307,7 @@ void Single::update_lightpos()
 
 void Single::show_fog()
 {
-	GLfloat fogColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	GLfloat fogColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	glFogi(GL_FOG_MODE, GL_LINEAR); // <1>

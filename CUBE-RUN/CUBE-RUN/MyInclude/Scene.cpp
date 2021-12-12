@@ -65,6 +65,7 @@ void Scene::input()
 
 	}
 	if (GetAsyncKeyState('C') & 0x8000) testTiles->createTile();
+	if (GetAsyncKeyState('P') & 0x8000) m_pPlayer->getCoin();
 }
 
 void Scene::update(float frameTime)
@@ -82,6 +83,7 @@ void Scene::update(float frameTime)
 	
 
 	CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
+	ParticleManager::GetInstance()->Update(0.01f);
 	Player::setDirZero();
 }
 
@@ -92,6 +94,8 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 	m_pPlayer->draw(shaderNum, textureBind);
 
 	testTiles->draw(shaderNum, textureBind);
+
+	ParticleManager::GetInstance()->Draw(30.0f, 36);
 }
 
 void Scene::drawPortal(unsigned int shaderNum, int textureBind)

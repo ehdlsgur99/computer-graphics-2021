@@ -13,6 +13,10 @@ CollisionManager::~CollisionManager()
 {
 
 }
+
+// return 1 : Æ¢¾î³ª¿Â Å¥ºê
+// return 2 : ¶¥¿¡ ²¨Áø Å¥ºê
+// return 3 : ÄÚÀÎ
 int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 {
 	glm::vec3 playerPos = player->getTranslateVec();

@@ -26,7 +26,7 @@ void SoundManager::PlayBg(std::string path)
 	TCHAR* r(buf);
 
 
-	//mciSendString(r, 0, 0, 0);
+	mciSendString(r, 0, 0, 0);
 }
 
 void SoundManager::PlayEf(std::string path)
@@ -41,5 +41,5 @@ void SoundManager::PlayEf(std::string path)
 	TCHAR* r(buf);
 
 	// 효과음 파일 재생
-	//sndPlaySound(r, SND_ASYNC);
+	sndPlaySound(r, SND_ASYNC);
 }

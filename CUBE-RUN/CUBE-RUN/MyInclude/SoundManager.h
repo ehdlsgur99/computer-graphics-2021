@@ -2,6 +2,8 @@
 
 #include "Game.h"
 #include "Singleton.h"
+#include <Mmsystem.h>
+#include <cstring>
 
 #pragma comment (lib, "msimg32.lib")
 #pragma comment (lib, "winmm.lib")
