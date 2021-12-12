@@ -134,6 +134,7 @@ void Player::draw(unsigned int shaderNum, int textureBind)
 	unsigned int color = glGetUniformLocation(shaderNum, "objectColor");
 	unsigned int ml = glGetUniformLocation(shaderNum, "modelTransform");
 
+	m_pBody->draw();
 }
 
 void Player::setDirZero()

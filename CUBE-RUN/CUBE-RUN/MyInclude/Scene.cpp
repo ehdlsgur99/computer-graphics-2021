@@ -85,13 +85,13 @@ void Scene::update(float frameTime)
 	m_pPlayer->update(frameTime);
 	m_tCamera.setTarget(m_pPlayer->getTranslateVec());
 	//CORE->update_lightpos();
-	if (!start_update_viewmat)
+	/*if (!start_update_viewmat)
 	{
 		start_update_viewmat = true;
 		m_pPlayer->input('x');
 		m_tCamera.updatePos(m_pPlayer->angle, 30);
 		CORE->updateViewMat();
-	}
+	}*/
 
 
 
