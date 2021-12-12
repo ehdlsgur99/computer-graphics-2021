@@ -13,6 +13,10 @@ CollisionManager::~CollisionManager()
 {
 
 }
+
+// return 1 : Æ¢¾î³ª¿Â Å¥ºê
+// return 2 : ¶¥¿¡ ²¨Áø Å¥ºê
+// return 3 : ÄÚÀÎ
 int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 {
 	glm::vec3 playerPos = player->getTranslateVec();
@@ -45,6 +49,7 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 			float distance = sqrt(pow(((playerPos.x) - cubePos.x), 2) + pow(((playerPos.y) - cubePos.y), 2) + pow((playerPos.z - cubePos.z), 2));
 			if (distance < 1.0f)
 			{
+				ParticleManager::GetInstance()->createParticle(nowTile->coins[j]->getTranslateVec());
 				delete nowTile->coins[j];
 				nowTile->coins.erase(nowTile->coins.begin() + j);
 				return 3;

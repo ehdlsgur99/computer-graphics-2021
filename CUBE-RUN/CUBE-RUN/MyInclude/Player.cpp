@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "TextureClass.h"
-
+#include "ParticleManager.h"
+#include "SoundManager.h"
 
 glm::vec3 Player::m_vDir = glm::vec3(0.0f);
 glm::vec3 Player::m_vForward = glm::vec3(0.0f, 0.0f, 1.0f);
@@ -109,7 +110,7 @@ void Player::update(float deltaTime)
 	m_vDir = m_vForward;
 	glm::vec3 offset = m_vDir * fMoveSpeed * deltaTime;
 	this->setTranslate(m_vPivot + offset);
-	
+
 	jump(deltaTime);
 }
 
@@ -127,7 +128,12 @@ void Player::draw(unsigned int shaderNum, int textureBind)
 	// body
 	modeling = this->m_mSRTModel * m_pBody->getModelTransform();
 	glUniformMatrix4fv(glGetUniformLocation(shaderNum, "modelTransform"), 1, GL_FALSE, glm::value_ptr(modeling));
-	m_pBody->draw();
+
+	//
+	// 
+	unsigned int color = glGetUniformLocation(shaderNum, "objectColor");
+	unsigned int ml = glGetUniformLocation(shaderNum, "modelTransform");
+
 }
 
 void Player::setDirZero()
@@ -176,6 +182,12 @@ void Player::Player_side_move(char key)
 	this->setTranslate(glm::vec3(gettransfrom.x + move.x, gettransfrom.y + move.y, gettransfrom.z + move.z));
 }
 
+
+void Player::getCoin()
+{
+	ParticleManager::GetInstance()->createParticle(this->getTranslateVec());
+}
+
 void Player::jump(float dt)
 {
 	static float jump_speed = 3.0f;
@@ -212,5 +224,4 @@ void Player::jump(float dt)
 			}
 		}
 	}
-	
 }

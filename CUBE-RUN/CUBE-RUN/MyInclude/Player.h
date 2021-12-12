@@ -1,8 +1,12 @@
 #pragma once
 #include "Object.h"
 #include "Mesh.h"
+#include "ParticleManager.h"
+
+
 
 #define SIDE_MOVE_SPEED 0.1
+
 class TextureClass;
 
 // body is main
@@ -13,6 +17,7 @@ class Player : public Mesh {
 	TextureClass* m_pTextureLeg;
 
 	Mesh* m_pBody;
+
 public:
 	Player() = delete;
 	Player(float size, glm::vec3 pivot);
@@ -43,6 +48,9 @@ public:
 	void input(char key);
 	void update(float deltaTime);
 	void draw(unsigned int shaderNum, int textureBind);
+
+	// coin 획득하면 발생하는 파티클
+	void getCoin();
 
 	static void setDirZero();
 	static void setForward(glm::vec3 newFow);
