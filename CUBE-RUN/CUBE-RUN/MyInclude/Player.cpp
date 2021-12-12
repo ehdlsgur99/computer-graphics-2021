@@ -128,12 +128,7 @@ void Player::draw(unsigned int shaderNum, int textureBind)
 	// body
 	modeling = this->m_mSRTModel * m_pBody->getModelTransform();
 	glUniformMatrix4fv(glGetUniformLocation(shaderNum, "modelTransform"), 1, GL_FALSE, glm::value_ptr(modeling));
-
-	//
-	// 
-	unsigned int color = glGetUniformLocation(shaderNum, "objectColor");
-	unsigned int ml = glGetUniformLocation(shaderNum, "modelTransform");
-
+	Mesh::draw();
 }
 
 void Player::setDirZero()
