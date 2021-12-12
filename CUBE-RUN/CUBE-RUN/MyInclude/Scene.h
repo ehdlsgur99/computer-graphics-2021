@@ -32,7 +32,7 @@ public:
 	Scene() = delete;
 	Scene(int sceneNum, CameraVectors& cam);
 	~Scene();
-
+	glm::vec3 get_player_pos();
 public:
 	void input();
 	void update(float frameTime);

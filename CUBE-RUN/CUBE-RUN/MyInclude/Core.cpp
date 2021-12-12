@@ -295,7 +295,10 @@ void Single::gameLoop()
 void Single::update_lightpos()
 {
 	glm::vec3 viewPos = m_pScene->m_tCamera.vEYE;
-	m_vLightPos = glm::vec3(m_pScene->m_tCamera.get_camera_pos() * 0.0f);
+	//m_vLightPos = glm::vec3(m_pScene->m_tCamera.get_camera_pos() * 1.0f);
+	//m_pScene->get_player_pos()
+	m_vLightPos = glm::vec3(m_pScene->get_player_pos() * 1.1f);
+	m_vLightPos = glm::vec3(0.0f);
 	m_vLightColor = glm::vec3(1.0f);
 
 	m_pMainShader->setVec3("viewPos", viewPos);
