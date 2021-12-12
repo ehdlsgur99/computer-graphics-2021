@@ -80,9 +80,11 @@ void Scene::input()
 	}
 	if (GetAsyncKeyState('K') & 0x0001) brightness += 0.1f;
 	if (GetAsyncKeyState('J') & 0x0001) brightness -= 0.1f;
+	if (GetAsyncKeyState('M') & 0x0001) m_pPlayer->invincibility = !m_pPlayer->invincibility;
 
 	if (GetAsyncKeyState('C') & 0x8000) testTiles->createTile();
 	if (GetAsyncKeyState('P') & 0x8000) m_pPlayer->getCoin();
+
 	if (GetAsyncKeyState('S') & 0x8000)
 	{
 		screen->changeState(eScreenState::eGameRun, m_pPlayer);
@@ -90,6 +92,9 @@ void Scene::input()
 		CORE->updateViewMat();
 		isGameStart = true;
 	}
+
+	if (GetAsyncKeyState('O') & 0x8000) m_pPlayer->destroyparticle();
+
 }
 
 void Scene::update(float frameTime)
@@ -100,12 +105,15 @@ void Scene::update(float frameTime)
 	foward = glm::normalize(foward);
 	Player::setForward(-foward);
 	
+	//player and camera move
+
+
 	
 	//player and camera move
 	if (isGameStart)
 	{
 		m_pPlayer->update(frameTime);
-		m_tCamera.setTarget(m_pPlayer->getTranslateVec());
+		if (m_pPlayer->life) m_tCamera.setTarget(m_pPlayer->getTranslateVec());
 		CORE->update_lightpos(brightness);
 
 		if (!start_update_viewmat)

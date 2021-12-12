@@ -18,7 +18,7 @@ public:
 public:
 	ParticleManager();
 	~ParticleManager();
-	void createParticle(glm::vec3 vec);
+	void createParticle(glm::vec3 vec,int type);
 	bool Update(float time_);
 	void Draw(float angle,  int numTriangle, int sNum, int bindTex);
 };

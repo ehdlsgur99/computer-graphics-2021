@@ -30,7 +30,7 @@ GLfloat cube_normal[36][3] = { //--- 버텍스 속성: 좌표값(FragPos), 노말값 (Norma
 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f
 };
 
-Particle::Particle()
+Particle::Particle(int type)
 {
 	own_x = 0;
 	own_y = 0; 
@@ -39,12 +39,17 @@ Particle::Particle()
 	r = (float)(rand() % 10000) / (float)(10000);
 	g = (float)(rand() % 10000) / (float)(10000);
 	b = (float)(rand() % 10000) / (float)(10000);
-	size = 0.05;
+	if(type == 0) size = 0.05;
+	if(type == 1) size = 0.15;
+	Ptype = type;
 
+	
 	coinParticle = new Cube("Objs/cube.obj", glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), "Texture/300coin.png");
+	PlayerDestroyParticle = new Cube("Objs/cube.obj", glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), "Texture/Player/player_texture.png");
+
 }
 
-void Particle::init()
+void Particle::init(int type)
 {
 	own_x = 0;
 	own_y = 0;
@@ -53,7 +58,9 @@ void Particle::init()
 	r = (float)(rand() % 10000) / (float)(10000);
 	g = (float)(rand() % 10000) / (float)(10000);
 	b = (float)(rand() % 10000) / (float)(10000);
-	size = 0.05;
+	if (type == 0) size = 0.05;
+	if (type == 1) size = 0.15;
+	Ptype = type;
 }
 
 void Particle::Update(float deltaTime)
@@ -71,6 +78,14 @@ void Particle::Draw(glm::vec3 pos, int sNum, int bindTex,float ch_angle, unsigne
 	glm::mat4 End = Tr * Rt * Si;
 	//glm::mat4 Light = Tr * Si;
 
-	coinParticle->m_mSRTModel = End;
-	coinParticle->draw(sNum, bindTex);
+	if (Ptype == 0)
+	{
+		coinParticle->m_mSRTModel = End;
+		coinParticle->draw(sNum, bindTex);
+	}
+	else if (Ptype == 1)
+	{
+		PlayerDestroyParticle->m_mSRTModel = End;
+		PlayerDestroyParticle->draw(sNum, bindTex);
+	}
 }

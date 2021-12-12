@@ -60,13 +60,15 @@ void Screen::changeState(int state, Player *player)
 {
 	nowScreenState = state;
 	screenPos = player->getTranslateVec();
-	screenPos.y += 10.0f;
+	
 	if (nowScreenState == eScreenState::eGameOver)
 	{
+		screenPos.y += 5.0f;
 		popupGameOver();
 	}
 	else if (nowScreenState == eScreenState::eGameStart)
 	{
+		screenPos.y += 10.0f;
 		popupGameStart();
 	}
 }
