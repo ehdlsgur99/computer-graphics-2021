@@ -87,7 +87,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -154,8 +154,10 @@
     <ClCompile Include="MyInclude\Player.cpp" />
     <ClCompile Include="MyInclude\Portal.cpp" />
     <ClCompile Include="MyInclude\Scene.cpp" />
+    <ClCompile Include="MyInclude\Screen.cpp" />
     <ClCompile Include="MyInclude\ShaderProgram.cpp" />
     <ClCompile Include="MyInclude\SoundManager.cpp" />
+    <ClCompile Include="MyInclude\TextManager.cpp" />
     <ClCompile Include="MyInclude\TextureClass.cpp" />
     <ClCompile Include="MyInclude\Tile.cpp" />
     <ClCompile Include="MyInclude\Tiles.cpp" />
@@ -177,9 +179,11 @@
     <ClInclude Include="MyInclude\Player.h" />
     <ClInclude Include="MyInclude\Portal.h" />
     <ClInclude Include="MyInclude\Scene.h" />
+    <ClInclude Include="MyInclude\Screen.h" />
     <ClInclude Include="MyInclude\ShaderProgram.h" />
     <ClInclude Include="MyInclude\Singleton.h" />
     <ClInclude Include="MyInclude\SoundManager.h" />
+    <ClInclude Include="MyInclude\TextManager.h" />
     <ClInclude Include="MyInclude\TextureClass.h" />
     <ClInclude Include="MyInclude\Tile.h" />
     <ClInclude Include="MyInclude\Tiles.h" />

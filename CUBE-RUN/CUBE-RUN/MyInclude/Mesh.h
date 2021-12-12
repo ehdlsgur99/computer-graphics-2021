@@ -26,7 +26,7 @@ public:
 
 	glm::mat4 m_mSRTModel = glm::mat4(1.0f);
 
-protected:
+public:
 	Mesh() = default;
 
 public:

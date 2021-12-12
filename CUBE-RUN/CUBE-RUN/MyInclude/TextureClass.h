@@ -6,10 +6,10 @@
 
 
 class TextureClass {
-private:
+public:
 	unsigned int m_iTexture;
 
-private:
+public:
 	int m_iWidth;
 	int m_iHeight;
 	int m_iNumOfChannel;

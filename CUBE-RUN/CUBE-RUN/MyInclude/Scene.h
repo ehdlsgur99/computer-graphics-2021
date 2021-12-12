@@ -9,6 +9,7 @@ class Cube;
 class Portal;
 class Tile;
 class Tiles;
+class Screen;
 
 class Scene {
 private:
@@ -26,7 +27,9 @@ private:
 	Portal* m_pPortal[2];
 
 	Tiles* testTiles;
+	Screen* screen;
 
+	bool isGameStart;
 	
 
 public:

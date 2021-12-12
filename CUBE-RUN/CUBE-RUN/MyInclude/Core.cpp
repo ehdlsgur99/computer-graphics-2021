@@ -5,6 +5,7 @@
 #include "ShaderProgram.h"
 #include "CubeMap.h"
 #include "DepthMap.h"
+#include "TextManager.h"
 
 Single* Single::m_pInst = nullptr;
 
@@ -33,6 +34,8 @@ bool Single::init(int argc, char* argv[], int sizex, int sizey)
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("CUBE-RUN");
 
+	TextManager::GetInstance()->InitFont();
+	
 
 	// Initialize GLEW
 	glewExperimental = GL_TRUE;
@@ -164,6 +167,7 @@ void Single::updateViewMat()
 	// cube
 	m_pCubeShader->use();
 	m_pCubeShader->setMat4("viewTransform", glm::mat3(viewTransform));
+
 }
 
 void Single::drawSkyCube()
@@ -175,6 +179,7 @@ void Single::drawSkyCube()
 	m_pSkyCube->bindTexture(0);
 	// draw cube
 	m_pCube->draw();
+
 	glDepthFunc(GL_LESS);
 }
 
@@ -187,7 +192,9 @@ void Single::drawScene()
 
 	CORE->m_pDepthMap->useTexMap();
 	CORE->m_pScene->draw(CORE->m_pShadowShader->getProgram(), 0);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 
 	//--------------------------------------------------------------
 	// 2nd pass
@@ -222,8 +229,11 @@ void Single::drawScene()
 	CORE->m_pMainShader->use();
 	CORE->m_pDepthMap->bindTexture(0);
 	CORE->m_pScene->draw(CORE->m_pMainShader->getProgram(), 1);
+
+
 	//--------------------------------------------------------------
 	CORE->drawSkyCube();
+
 
 
 	glutSwapBuffers();
@@ -255,6 +265,8 @@ void Single::mouseMove(int x, int y)
 {
 	CORE->m_pScene->moveMouse({ x,y });
 	CORE->updateViewMat();
+
+
 }
 
 void Single::mouseWheel(int wheel, int dir, int x, int y)

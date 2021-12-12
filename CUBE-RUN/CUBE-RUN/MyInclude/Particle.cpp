@@ -64,7 +64,7 @@ void Particle::Update(float deltaTime)
 
 void Particle::Draw(glm::vec3 pos, int sNum, int bindTex,float ch_angle, unsigned int modelLocation, unsigned int colorLocation, int numTriangle)
 {
-	glm::mat4 Si = glm::scale(glm::mat4(3.0f), glm::vec3(size, size, size));
+	glm::mat4 Si = glm::scale(glm::mat4(1.0f), glm::vec3(size, size, size));
 	glm::mat4 Tr = glm::translate(glm::mat4(1.0f), pos);
 	glm::mat4 Rt = glm::rotate(glm::mat4(1.0f), glm::radians(float(-ch_angle)), glm::vec3(1.0, 0.0, 0.0))
 		* glm::translate(glm::mat4(1.0f), glm::vec3(own_x, own_y, 0));

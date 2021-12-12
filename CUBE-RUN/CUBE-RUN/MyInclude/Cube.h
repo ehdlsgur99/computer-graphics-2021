@@ -4,6 +4,7 @@
 class TextureClass;
 
 class Cube : public Mesh {
+public:
 	TextureClass* m_pTexture;
 
 public:

@@ -7,6 +7,8 @@
 #include "Tile.h"
 #include "CollisionManager.h"
 #include "Tiles.h"
+#include "Screen.h"
+#include "TextManager.h"
 
 Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_pPortal{ nullptr, nullptr },
@@ -19,12 +21,19 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_pPlane = new Cube("Objs/Cube.obj", glm::vec3(20.0f, 0.1f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f), "Texture/bg.png");
 	m_pPlayer = new Player(1.0f, glm::vec3(0.0f,0.0f,0.0f));
 
+	m_pPlayer = new Player(1.0f, glm::vec3(0.0f, 0.0f, 0.0f));
+
 	testTiles = new Tiles();
 	testTiles->init();
 	for (int i = 0; i < 300; i++)
 	{
 		testTiles->createTile();
 	}
+
+	screen = new Screen();
+	screen->init();
+
+	isGameStart = false;
 
 	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
 	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
@@ -74,6 +83,13 @@ void Scene::input()
 
 	if (GetAsyncKeyState('C') & 0x8000) testTiles->createTile();
 	if (GetAsyncKeyState('P') & 0x8000) m_pPlayer->getCoin();
+	if (GetAsyncKeyState('S') & 0x8000)
+	{
+		screen->changeState(eScreenState::eGameRun, m_pPlayer);
+		m_tCamera.updatePos(m_pPlayer->angle, 30.0f);
+		CORE->updateViewMat();
+		isGameStart = true;
+	}
 }
 
 void Scene::update(float frameTime)
@@ -83,35 +99,53 @@ void Scene::update(float frameTime)
 	foward.y = 0;
 	foward = glm::normalize(foward);
 	Player::setForward(-foward);
-	 
+	
 	
 	//player and camera move
-	m_pPlayer->update(frameTime);
-	m_tCamera.setTarget(m_pPlayer->getTranslateVec());
-	CORE->update_lightpos(brightness);
-	
-	if (!start_update_viewmat)
+	if (isGameStart)
 	{
-		start_update_viewmat = true;
-		m_pPlayer->input('x');
-		m_tCamera.updatePos(m_pPlayer->angle, 30);
-		CORE->updateViewMat();
+		m_pPlayer->update(frameTime);
+		m_tCamera.setTarget(m_pPlayer->getTranslateVec());
+		CORE->update_lightpos(brightness);
+
+		if (!start_update_viewmat)
+		{
+			start_update_viewmat = true;
+			m_pPlayer->input('x');
+			m_tCamera.updatePos(m_pPlayer->angle, 30);
+			CORE->updateViewMat();
+		}
+	}
+	int checkCollision = 0;
+	checkCollision = CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
+	if (checkCollision == 1 || checkCollision == 2)
+	{
+		screen->changeState(eScreenState::eGameOver, m_pPlayer);
 	}
 
-	CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
 	ParticleManager::GetInstance()->Update(0.1f);
+	screen->update();
 	Player::setDirZero();
 }
 
 void Scene::draw(unsigned int shaderNum, int textureBind)
 {
 	// draw all
-	m_pPlane->draw(shaderNum, textureBind);
+	//m_pPlane->draw(shaderNum, textureBind);
+
 	m_pPlayer->draw(shaderNum, textureBind);
 
+	glColor3f(1, 0, 0);
+	glRasterPos3f(0.0, 0.0, 0.0);
+	TextManager::GetInstance()->glPrint("test");
+
 	testTiles->draw(shaderNum, textureBind);
+	
+	screen->draw(shaderNum, textureBind);
 
 	ParticleManager::GetInstance()->Draw(90.0f, 36, shaderNum, textureBind);
+
+
 }
 
 void Scene::drawPortal(unsigned int shaderNum, int textureBind)
