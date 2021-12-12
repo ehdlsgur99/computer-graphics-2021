@@ -13,7 +13,7 @@ struct CameraVectors {
 
 public:
 	float yaw = 90.0f, pitch = 30.0f;
-	float scroll = 5.0f;
+	float scroll = 25.0f;
 
 public:
 	void updatePos(float dx, float dy) {
