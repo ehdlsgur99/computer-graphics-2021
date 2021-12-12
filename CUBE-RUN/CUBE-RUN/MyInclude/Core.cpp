@@ -285,22 +285,17 @@ void Single::gameLoop()
 	CORE->m_pScene->input();
 	CORE->m_pScene->update(deltaTime);
 	CORE->updateViewMat();
-	CORE->update_lightpos();
 	glutPostRedisplay();			// draw
 
 	CORE->m_pTimer->updateDeltaTime();
 }
 
 
-void Single::update_lightpos()
+void Single::update_lightpos(float brightness)
 {
 	glm::vec3 viewPos = m_pScene->m_tCamera.vEYE;
-	//m_vLightPos = glm::vec3(m_pScene->m_tCamera.get_camera_pos() * 1.0f);
-	//m_pScene->get_player_pos()
-	m_vLightPos = glm::vec3(m_pScene->get_player_pos() * 1.1f);
-	m_vLightPos = glm::vec3(0.0f);
-
-	m_vLightColor = glm::vec3(1.0f);
+	m_vLightPos = glm::vec3(glm::vec3(m_pScene->get_player_pos().x, m_pScene->get_player_pos().y + 3.0f, m_pScene->get_player_pos().z));
+	m_vLightColor = glm::vec3(brightness);
 
 	m_pMainShader->setVec3("viewPos", viewPos);
 	m_pMainShader->setVec3("lightPos", m_vLightPos);

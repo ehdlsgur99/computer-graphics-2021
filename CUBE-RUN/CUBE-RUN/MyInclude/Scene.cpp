@@ -9,9 +9,10 @@
 #include "Tiles.h"
 
 Scene::Scene(int sceneNum, CameraVectors& cam) :
-	m_pPortal{nullptr, nullptr},
+	m_pPortal{ nullptr, nullptr },
 	m_pPlane(nullptr),
-	m_iSceneNum(sceneNum)
+	m_iSceneNum(sceneNum),
+	brightness(1.0f)
 {
 	m_tCamera = cam;
 
@@ -68,6 +69,9 @@ void Scene::input()
 	{
 		m_pPlayer->input(VK_SPACE);
 	}
+	if (GetAsyncKeyState('K') & 0x0001) brightness += 0.1f;
+	if (GetAsyncKeyState('J') & 0x0001) brightness -= 0.1f;
+
 	if (GetAsyncKeyState('C') & 0x8000) testTiles->createTile();
 	if (GetAsyncKeyState('P') & 0x8000) m_pPlayer->getCoin();
 }
@@ -84,16 +88,15 @@ void Scene::update(float frameTime)
 	//player and camera move
 	m_pPlayer->update(frameTime);
 	m_tCamera.setTarget(m_pPlayer->getTranslateVec());
-	//CORE->update_lightpos();
-	/*if (!start_update_viewmat)
+	CORE->update_lightpos(brightness);
+	
+	if (!start_update_viewmat)
 	{
 		start_update_viewmat = true;
 		m_pPlayer->input('x');
 		m_tCamera.updatePos(m_pPlayer->angle, 30);
 		CORE->updateViewMat();
-	}*/
-
-
+	}
 
 	CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
 	ParticleManager::GetInstance()->Update(0.1f);

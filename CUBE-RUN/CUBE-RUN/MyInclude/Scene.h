@@ -16,6 +16,7 @@ private:
 	POINT m_tBefPoint = { 0,0 };
 	int m_iSceneNum;
 	bool start_update_viewmat = false;
+	float brightness;
 public:
 	CameraVectors m_tCamera;
 	Player* m_pPlayer;

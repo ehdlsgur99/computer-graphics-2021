@@ -38,6 +38,7 @@ private:
 	int direction;
 	bool jumpdir;
 	bool isjump;
+	bool life = true;
 	float max_jump_height;
 	glm::vec3 org_pos;
 private:
@@ -60,6 +61,7 @@ public:
 	void jump(float dt);
 public:
 	void moveBack(glm::vec3 backHow);
+	void GameOver(int type);
 
 };
 

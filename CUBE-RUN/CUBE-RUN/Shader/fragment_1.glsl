@@ -37,7 +37,7 @@ float shadowCalculate(vec4 fragPos, float dotNormal)
 void main(void)
 {
 	// ambient
-	vec3 ambient = lightColor * 0.3;
+	vec3 ambient = lightColor * 0.5;
 
 	// diffuse
 	vec3 norm = normalize(Normal);

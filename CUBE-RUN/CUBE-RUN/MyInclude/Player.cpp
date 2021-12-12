@@ -105,13 +105,22 @@ void Player::update(float deltaTime)
 		this->setRotate(m_rotate_x);
 		break;
 	}
+
+	if (life == true) //게임 진행중 직진 및 점프
+	{
+		m_vDir = m_vForward;
+		glm::vec3 offset = m_vDir * fMoveSpeed * deltaTime;
+		this->setTranslate(m_vPivot + offset);
+
+		jump(deltaTime);
+	}
+	else if (life == false) //게임오버
+	{
+		glm::vec3 pos = this->getTranslateVec();
+		this->setTranslate(glm::vec3(pos.x, pos.y - fMoveSpeed*2 * deltaTime, pos.z));
+	}
+
 	
-
-	m_vDir = m_vForward;
-	glm::vec3 offset = m_vDir * fMoveSpeed * deltaTime;
-	this->setTranslate(m_vPivot + offset);
-
-	jump(deltaTime);
 }
 
 void Player::setRotateByCamera(glm::vec3 veye)
@@ -129,12 +138,11 @@ void Player::draw(unsigned int shaderNum, int textureBind)
 	modeling = this->m_mSRTModel * m_pBody->getModelTransform();
 	glUniformMatrix4fv(glGetUniformLocation(shaderNum, "modelTransform"), 1, GL_FALSE, glm::value_ptr(modeling));
 
-	//
-	// 
 	unsigned int color = glGetUniformLocation(shaderNum, "objectColor");
 	unsigned int ml = glGetUniformLocation(shaderNum, "modelTransform");
 
-	m_pBody->draw();
+	Mesh::draw();
+
 }
 
 void Player::setDirZero()
@@ -224,5 +232,26 @@ void Player::jump(float dt)
 				up = 0;
 			}
 		}
+	}
+}
+
+void Player::GameOver(int type)
+{
+	// 큐브 정지
+	// 0 = down 1 = up
+	// 2 = 장외탈락
+	life = false;
+	
+	if (type == 0)
+	{
+		life = false;
+	}
+	else if (type == 1)
+	{
+
+	}
+	else if (type == 2)
+	{
+
 	}
 }

@@ -35,9 +35,18 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 			if (distance < 1.0f )
 			{
 				if (nowTile->cubeTypes[j] == eCubeType::eCubeUp)
+				{
+					printf("up\n");
 					return 1;
+				}
 				if (nowTile->cubeTypes[j] == eCubeType::eCubeDown)
-					return 2;
+				{
+					if (nowTile->cubeTypes[j] != eCubeType::eCubeNormal)
+					{
+						player->GameOver(0); // Down
+						return 2;
+					}
+				}
 
 			}
 		}

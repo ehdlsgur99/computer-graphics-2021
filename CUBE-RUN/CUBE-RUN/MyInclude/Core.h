@@ -52,7 +52,7 @@ private:
 
 public:
 	void updateViewMat();
-	void update_lightpos();
+	void update_lightpos(float brightness);
 	void show_fog();
 private:
 	Mesh* m_pCube;
