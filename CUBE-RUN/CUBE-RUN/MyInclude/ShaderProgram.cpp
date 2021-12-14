@@ -1,4 +1,4 @@
-#include "ShaderProgram.h"
+#include "common.h"
 
 ShaderProgram::ShaderProgram(const char* vertexFile, const char* fragmentFile)
 {

@@ -1,5 +1,4 @@
-#include "Object.h"
-#include "ObjectManager.h"
+#include "common.h"
 
 Object::Object(const char* objFilename, glm::vec3 scale, glm::vec3 rotate, glm::vec3 translate)
 	: m_vScale(scale), m_vRotate(rotate), m_vPivot(translate)

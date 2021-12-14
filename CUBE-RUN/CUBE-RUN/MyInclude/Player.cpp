@@ -1,7 +1,4 @@
-#include "Player.h"
-#include "TextureClass.h"
-#include "ParticleManager.h"
-#include "SoundManager.h"
+#include "common.h"
 
 glm::vec3 Player::m_vDir = glm::vec3(0.0f);
 glm::vec3 Player::m_vForward = glm::vec3(0.0f, 0.0f, 1.0f);

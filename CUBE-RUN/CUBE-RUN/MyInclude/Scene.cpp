@@ -1,17 +1,6 @@
-#include "System.h"
-#include "Scene.h"
-#include "Box.h"
-#include "Player.h"
-#include "Portal.h"
-#include "Tile.h"
-#include "CollisionManager.h"
-#include "Tiles.h"
-#include "Screen.h"
-#include "TextManager.h"
-#include "SoundManager.h"
+#include "common.h"
 
 Scene::Scene(int sceneNum, CameraVectors& cam) :
-	m_pPortal{ nullptr, nullptr },
 	m_pPlane(nullptr),
 	m_iSceneNum(sceneNum),
 	brightness(1.0f)
@@ -33,9 +22,6 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 	screen->init();
 
 	isGameStart = false;
-
-	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
-	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
 
 	SoundManager::GetInstance()->PlayBg("Sound/main_bgm.mp3");
 }
@@ -111,7 +97,7 @@ void Scene::update(float frameTime)
 	{
 		m_pPlayer->update(frameTime);
 		if (m_pPlayer->life) m_tCamera.setTarget(m_pPlayer->getTranslateVec());
-		System::GetInstance()->update_lightpos(brightness);
+		System::GetInstance()->updatelightpos(brightness);
 
 		if (!start_update_viewmat)
 		{
@@ -186,17 +172,6 @@ void Scene::scrollMouse(int dir)
 {
 	if (dir > 0) m_tCamera.scroll -= m_tCamera.scroll / 10;
 	else m_tCamera.scroll += m_tCamera.scroll / 10;
-}
-
-glm::mat4 Scene::getPortalView(Portal* from, Portal* dist)
-{
-	glm::mat4 temp = m_tCamera.getViewMat() * from->getModelTransform();
-	glm::mat4 portalCam =
-		temp *
-		glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)) *
-		glm::inverse(dist->getModelTransform());
-
-	return portalCam;
 }
 
 

@@ -1,5 +1,6 @@
 #pragma once
-#include "Object.h"
+
+#include "common.h"
 
 class TextureClass;
 

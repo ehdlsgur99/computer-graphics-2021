@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Singleton.h"
-#include "Game.h"
-#include <cstring>
+#include "common.h"
+#include "Types.h"
 
 struct ObjectBox
 {

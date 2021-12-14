@@ -1,12 +1,7 @@
 #pragma once
 
-#include "Game.h"
-#include "Singleton.h"
-#include <Mmsystem.h>
-#include <cstring>
+#include "common.h"
 
-#pragma comment (lib, "msimg32.lib")
-#pragma comment (lib, "winmm.lib")
 
 class SoundManager : public CSingleton<SoundManager>
 {

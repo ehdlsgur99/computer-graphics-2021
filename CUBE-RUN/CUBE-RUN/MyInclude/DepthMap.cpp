@@ -1,5 +1,4 @@
-#include "DepthMap.h"
-#include "Game.h"
+#include "common.h"
 
 DepthMap::DepthMap(unsigned int w, unsigned int h) :
 	m_iW(w), m_iH(h)

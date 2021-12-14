@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Object.h"
-#include "Box.h"
-#include <list>
+#include "common.h"
 
 class TextureClass;
 
@@ -15,6 +13,7 @@ enum eTileType { eDirect = 0, eLeftTurn, eRightTurn };
 enum eCreatePos {eUp = 0, eLeft, eRight, eDown};
 enum eCubeType {eCubeNormal = 0, eCubeUp, eCubeDown, eCubeCoin};
 
+class Box;
 class Tile
 {
 public:

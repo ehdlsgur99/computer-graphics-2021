@@ -1,14 +1,12 @@
-#include "TextureClass.h"
 
-#include "Game.h"
 
-//#ifndef STB_IMAGE_IMPLEMENTATION
-//#define STB_IMAGE_IMPLEMENTATION
-//#endif
+#include "common.h"
+
+#ifndef STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_IMPLEMENTATION
+#endif
+
 #include "stb_image.h"
-
-#include "ObjectManager.h"
-
 
 TextureClass::TextureClass(const char* fileName) 
 {

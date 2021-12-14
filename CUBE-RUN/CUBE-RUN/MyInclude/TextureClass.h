@@ -2,10 +2,14 @@
 
 
 
-// for stb_image
+#include "common.h"
 
 
-class TextureClass {
+
+struct TextureBox;
+
+class TextureClass
+{
 public:
 	unsigned int m_iTexture;
 

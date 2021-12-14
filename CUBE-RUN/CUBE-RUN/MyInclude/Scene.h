@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Game.h"
+#include "common.h"
 
 
 class Player;
 class Object;
-class Cube;
-class Portal;
+class Box;
 class Tile;
 class Tiles;
 class Screen;
@@ -24,9 +23,7 @@ public:
 	CameraVectors m_tCamera;
 	Player* m_pPlayer;
 private:
-	Cube* m_pPlane;
-	Cube* m_pWall[4];
-	Portal* m_pPortal[2];
+	Box* m_pPlane;
 
 	Tiles* testTiles;
 	Screen* screen;
@@ -55,6 +52,5 @@ public:
 	void scrollMouse(int dir);
 
 public:
-	glm::mat4 getPortalView(Portal* from, Portal* dist);
 };
 

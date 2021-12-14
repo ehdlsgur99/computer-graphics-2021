@@ -1,5 +1,7 @@
 
-#include "TextManager.h"
+
+
+#include "common.h"
 
 
 GLvoid TextManager::BuildFontWithEnum(FONT fontEnum, int fontSize)

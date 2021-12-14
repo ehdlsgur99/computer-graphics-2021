@@ -1,13 +1,9 @@
 #pragma once
 
-#include <gl/glm/gtc/matrix_transform.hpp>
-#include <gl/glew.h>
-#include <gl/glm/ext.hpp>
-#include <vector>
-#include <iostream>
-#include "Singleton.h"
-#include "Particle.h"
 
+#include "common.h"
+
+class Particle;
 class ParticleManager :public CSingleton<ParticleManager>
 {
 public:
