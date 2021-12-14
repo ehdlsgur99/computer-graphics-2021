@@ -132,7 +132,7 @@ void Single::initializeProgram()
 	//-------------------------------------------------------------------------------------
 	// cube shader
 	m_pCube = new Mesh("Objs/Cube.obj", glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f));
-	m_pSkyCube = new CubeMap("Texture/cube/c");
+	m_pSkyCube = new CubeMap("Texture/cube/s");
 
 	m_pCubeShader->use();
 	m_pCubeShader->setMat4("projectionTransform", projectionMat);
