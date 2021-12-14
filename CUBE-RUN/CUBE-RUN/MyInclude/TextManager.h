@@ -8,7 +8,6 @@
 #include <gl\gl.h>   // Header File For The OpenGL32 Library
 #include <gl\glu.h>  // Header File For The GLu32 Library
 #include <tchar.h>
-#include <string>
 
 #define DEFAULTFONTSIZE 20
 
@@ -23,6 +22,7 @@ enum FONT
 };
 
 //std::string my_hepler[] = { "<-,-> press player move!","Space Player Jump!","z,x Player Rotate!" };
+
 class TextManager : public CSingleton<TextManager>
 {
 public:

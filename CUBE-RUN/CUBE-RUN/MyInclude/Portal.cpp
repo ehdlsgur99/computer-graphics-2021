@@ -3,7 +3,7 @@
 
 //  facing 0 : it's +x, 1 -x, =y, -y, +z, -z
 Portal::Portal(float size, int faceNum, glm::vec3 translate) :
-	Mesh("Objs/Cube.obj", glm::vec3(0.1f, 2.0f, 1.0f) * size, glm::vec3(0.0f), translate + glm::vec3(0.0f, 1.0f, 0.0f) * size),
+	Object("Objs/Cube.obj", glm::vec3(0.1f, 2.0f, 1.0f) * size, glm::vec3(0.0f), translate + glm::vec3(0.0f, 1.0f, 0.0f) * size),
 	m_pTexture(nullptr)
 {
 	glm::vec3 rot(0.0f);
@@ -33,6 +33,6 @@ void Portal::draw(unsigned int shaderNum, int bindTex)
 	if (m_pTexture) m_pTexture->bindTexture(bindTex);
 
 	this->uniformModelingMat(shaderNum);
-	Mesh::draw();
+	Object::draw();
 
 }

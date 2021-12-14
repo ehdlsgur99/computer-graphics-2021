@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "Mesh.h"
+#include "Object.h"
 #include "ParticleManager.h"
 
 
@@ -10,13 +10,13 @@
 class TextureClass;
 
 // body is main
-class Player : public Mesh {
+class Player : public Object {
 //private:
 	// body
 	TextureClass* m_pTextureBody;
 	TextureClass* m_pTextureLeg;
 
-	Mesh* m_pBody;
+	Object* m_pBody;
 
 public:
 	Player() = delete;

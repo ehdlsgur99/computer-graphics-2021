@@ -1,40 +1,32 @@
 #pragma once
 
 #include "Game.h"
-
-// main singleton
+#include "Singleton.h"
 
 class Timer;
 class Scene;
 class ShaderProgram;
-class Mesh;
+class Object;
 class CubeMap;
 class DepthMap;
 
-class Single {
-private:
-	static Single* m_pInst;
+class System : public CSingleton<System>
+{
 
 public:
-	static Single* getInst() {
-		if (!m_pInst) m_pInst = new Single;
-		return m_pInst;
-	}
+	System();
+	~System();
 
-private:
-	Single();
-	~Single();
-
-private:
+public:
 	SIZE m_tWndSize;
 	Timer* m_pTimer;
 
-private:
+public:
 	ShaderProgram* m_pMainShader;
 	ShaderProgram* m_pCubeShader;
 	ShaderProgram* m_pShadowShader;
 
-private:
+public:
 	Scene* m_pScene;
 
 public:
@@ -46,7 +38,7 @@ public:
 	void changeScene(int sceneNum);
 	void endProgram();
 
-private:
+public:
 	// init program
 	void initializeProgram();
 
@@ -54,19 +46,19 @@ public:
 	void updateViewMat();
 	void update_lightpos(float brightness);
 	void show_fog();
-private:
-	Mesh* m_pCube;
+public:
+	Object* m_pCube;
 	CubeMap* m_pSkyCube;
 	DepthMap* m_pDepthMap;
 
-private:
+public:
 	void drawSkyCube();
 
-private:
+public:
 	glm::vec3 m_vLightPos;
 	glm::vec3 m_vLightColor;
 
-private:
+public:
 	// callback func
 	static void drawScene();
 	static void reshape(int w, int h);

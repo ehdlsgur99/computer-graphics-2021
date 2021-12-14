@@ -1,11 +1,11 @@
 #pragma once
-#include "Mesh.h"
+#include "Object.h"
 
 class TextureClass;
 
 
 class Portal :
-    public Mesh
+    public Object
 {
 	TextureClass* m_pTexture;
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Mesh.h"
-#include "Cube.h"
+#include "Object.h"
+#include "Box.h"
 #include "Player.h"
 
 enum eScreenState { eGameOver = 0, eGameStart, eGameRun };
@@ -10,8 +10,8 @@ class Screen
 {
 public:
 	int nowScreenState;
-	Cube* gameOverCube;
-	Cube* gameStartCube;
+	Box* gameOverCube;
+	Box* gameStartCube;
 	glm::vec3 screenPos;
 	float time;
 public:

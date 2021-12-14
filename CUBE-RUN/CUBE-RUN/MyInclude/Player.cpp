@@ -8,7 +8,7 @@ glm::vec3 Player::m_vForward = glm::vec3(0.0f, 0.0f, 1.0f);
 float Player::angle(0);
 
 Player::Player(float size, glm::vec3 pivot) :
-	Mesh("Objs/Cube.obj", glm::vec3(1.0f)* size, glm::vec3(0.0f), (pivot)+glm::vec3(1.0f, 1.0f, 0.0f) * size),
+	Object("Objs/Cube.obj", glm::vec3(1.0f)* size, glm::vec3(0.0f), (pivot)+glm::vec3(1.0f, 1.0f, 0.0f) * size),
 	m_vRightRot(glm::vec3(0.0f)),
 	m_vLeftRot(glm::vec3(0.0f)),
 	m_vBackRot(glm::vec3(20.0f, 0.0f, 0.0f)),
@@ -21,7 +21,7 @@ Player::Player(float size, glm::vec3 pivot) :
 	org_pos(glm::vec3(0.0f)),
 	jumpdir(true)
 {
-	m_pBody = new Mesh("Objs/Cube.obj", glm::vec3(1.0f) * size, glm::vec3(0.0f), pivot + glm::vec3(0.0f, 0.0f, 0.0f) * size);
+	m_pBody = new Object("Objs/Cube.obj", glm::vec3(1.0f) * size, glm::vec3(0.0f), pivot + glm::vec3(0.0f, 0.0f, 0.0f) * size);
 
 	m_pTextureBody = new TextureClass("Texture/Player/player_texture.png");
 }
@@ -140,7 +140,7 @@ void Player::draw(unsigned int shaderNum, int textureBind)
 	unsigned int color = glGetUniformLocation(shaderNum, "objectColor");
 	unsigned int ml = glGetUniformLocation(shaderNum, "modelTransform");
 
-	Mesh::draw();
+	Object::draw();
 
 }
 
