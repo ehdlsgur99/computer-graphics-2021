@@ -28,7 +28,8 @@ private:
 public:
 	static float angle;
 	bool life = true;
-	bool invincibility = false;
+	bool invincibility = true;
+	bool isjump;
 private:
 	glm::vec3 m_vLeftRot;
 	glm::vec3 m_vRightRot;
@@ -39,7 +40,6 @@ private:
 	int direction;
 	int GameOverType;
 	bool jumpdir;
-	bool isjump;
 	float max_jump_height;
 	glm::vec3 org_pos;
 private:
