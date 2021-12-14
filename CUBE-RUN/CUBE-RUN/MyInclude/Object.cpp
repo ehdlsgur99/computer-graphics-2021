@@ -107,7 +107,7 @@ void Object::loadObject(const char* fileName)
 	std::vector<glm::vec2> tex;
 
 	while (!feof(fp)) {
-		if (fscanf(fp, "%s", buff) == 3) printf("hello it's 3");
+		if (fscanf(fp, "%s", buff) == 3) printf("hello");
 
 		// vertex or element buffer
 		if (buff[0] == 'v' && buff[1] == '\0') {

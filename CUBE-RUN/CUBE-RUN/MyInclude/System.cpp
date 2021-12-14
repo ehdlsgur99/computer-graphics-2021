@@ -90,11 +90,7 @@ void System::initializeProgram()
 	changeScene(0);
 
 	// init shaders
-	m_pMainShader = new ShaderProgram("Shader/vertex_1.glsl", "Shader/fragment_1.glsl");
-	m_pShadowShader = new ShaderProgram("Shader/1pass_vertex.glsl","Shader/1pass_fragment.glsl");
-	// init mainshader transform
-	//-------------------------------------------------------------------------------------
-	// main shader
+	m_pMainShader = new ShaderProgram("Shader/vertex.glsl", "Shader/fragment.glsl");
 	m_pMainShader->use();
 
 	// proj mat
@@ -116,11 +112,10 @@ void System::initializeProgram()
 	m_pMainShader->setVec3("lightColor", m_vLightColor);
 
 
-	m_pShadowShader->use();
 	glm::mat4 shdwProj = glm::ortho(-30.0f, 30.0f, -30.0f, 30.0f, -10.0f, 300.0f);
 	glm::mat4 lightView = glm::lookAt(m_vLightPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	m_pShadowShader->setMat4("lightSpace", (shdwProj * lightView));
-	//-------------------------------------------------------------------------------------
+
+
 	m_pMainShader->use();
 	m_pMainShader->setMat4("lightVP", (shdwProj * lightView));
 
@@ -145,19 +140,14 @@ void System::updateViewMat()
 
 void System::drawScene()
 {
-	//--------------------------------------------------------------
-	// 1st pass
+
 	glCullFace(GL_FRONT);
-	System::GetInstance()->m_pShadowShader->use();
 
 	System::GetInstance()->m_pDepthMap->useTexMap();
-	System::GetInstance()->m_pScene->draw(System::GetInstance()->m_pShadowShader->getProgram(), 0);
-
+	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
-	//--------------------------------------------------------------
-	// 2nd pass
 	glCullFace(GL_BACK);
 	glViewport(0, 0, System::GetInstance()->m_tWndSize.cx, System::GetInstance()->m_tWndSize.cy);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -169,16 +159,13 @@ void System::drawScene()
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 	glDepthMask(GL_FALSE);
 	glStencilFunc(GL_NEVER, 0, 0xFF);
-	glStencilOp(GL_INCR, GL_KEEP, GL_KEEP);					// draw 1s when test failed
+	glStencilOp(GL_INCR, GL_KEEP, GL_KEEP);					
 
 	System::GetInstance()->m_pMainShader->use();
 	System::GetInstance()->m_pDepthMap->bindTexture(0);
 
 	// draw stencil pattern
 	glClear(GL_STENCIL_BUFFER_BIT);
-
-	// portal draw
-	System::GetInstance()->m_pScene->drawPortal(System::GetInstance()->m_pMainShader->getProgram(), 1);
 
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glDepthMask(GL_TRUE);
@@ -228,10 +215,6 @@ void System::keyboardChecker(unsigned char key, int x, int y)
 	case 'q':
 	case 'Q':
 		glutLeaveMainLoop();
-		break;
-	case 'f':
-	case 'F':
-		printf("%f\n", 1.0 / System::GetInstance()->m_pTimer->getDeltaTime());
 		break;
 	}
 }

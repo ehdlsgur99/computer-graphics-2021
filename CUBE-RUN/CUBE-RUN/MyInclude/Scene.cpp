@@ -149,9 +149,6 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 	ParticleManager::GetInstance()->Draw(90.0f, 36, shaderNum, textureBind);
 }
 
-void Scene::drawPortal(unsigned int shaderNum, int textureBind)
-{
-}
 
 void Scene::activeDragging(bool active, POINT pt)
 {
@@ -163,8 +160,7 @@ void Scene::moveMouse(POINT pt)
 {
 	if (!m_bDragging) return;
 
-	// rotate camera
-	//printf("%ld %ld \n", m_tBefPoint.x - pt.x, m_tBefPoint.y - pt.y);
+
 	m_tCamera.updatePos(m_tBefPoint.x - pt.x, m_tBefPoint.y - pt.y);
 	m_tBefPoint = pt;
 	

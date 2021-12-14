@@ -22,7 +22,6 @@ public:
 
 public:
 	ShaderProgram* m_pMainShader;
-	ShaderProgram* m_pShadowShader;
 
 public:
 	Scene* m_pScene;
