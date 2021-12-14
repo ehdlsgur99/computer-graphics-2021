@@ -34,6 +34,16 @@ GLvoid TextManager::BuildFontWithEnum(FONT fontEnum, int fontSize)
     }
 }
 
+TextManager::TextManager()
+{
+    helper.push_back("      <-,-> player move!");
+    helper.push_back("      Space Player Jump!");
+    helper.push_back("      z,x Player Rotate!");
+    helper.push_back("      GOOD LUCK!");
+    nowHelperIndex = -1;
+    helperTime = GetTickCount();
+}
+
 /** 새로운 폰트를 생성하는 함수입니다.
  *  char* fontName: 폰트 이름
  *  int fontSize: 폰트 크기
@@ -104,4 +114,30 @@ int TextManager::InitFont(GLvoid)                      // All Setup For OpenGL G
     BuildFontWithEnum(ARIAL, DEFAULTFONTSIZE);       // Build The Font
 
     return TRUE;                        // Initialization Went OK
+}
+
+
+void TextManager::drawTutorial()
+{
+    if (nowHelperIndex == -1)
+    {
+        helperTime = GetTickCount();
+        nowHelperIndex += 1;
+    }
+
+    if (GetTickCount() - helperTime >= 3000.0f )
+    {
+        if (nowHelperIndex < helper.size() - 1)
+        {
+            helperTime = GetTickCount();
+            nowHelperIndex += 1;  
+        }
+    }
+    if (nowHelperIndex != -1)
+    {
+        glColor3f(1, 0, 0);
+        glRasterPos3f(0.0, 0.0, 0.0);
+        glPrint(helper[nowHelperIndex].c_str());
+    }
+ 
 }

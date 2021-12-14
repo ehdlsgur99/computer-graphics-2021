@@ -16,14 +16,17 @@ enum FONT
 	TREBUCHETMS     // Trebuchet MS = 6
 };
 
-//std::string my_hepler[] = { "<-,-> press player move!","Space Player Jump!","z,x Player Rotate!" };
 
 class TextManager : public CSingleton<TextManager>
 {
 public:
-	TextManager() {};
+	TextManager();
 	~TextManager() {};
 public:
+	std::vector<std::string> helper;
+	float helperTime;
+	int nowHelperIndex;
+
 	HDC hDC;              // Private GDI Device Context
 	HGLRC hRC;            // Permanent Rendering Context
 	HWND hWnd;            // Holds Our Window Handle
@@ -35,6 +38,6 @@ public:
 	GLvoid KillFont(GLvoid);
 	GLvoid glPrint(const char* fmt, ...);
 	int InitFont(GLvoid);
-
+	void drawTutorial();
 };
 

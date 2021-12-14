@@ -135,9 +135,8 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 {
 	m_pPlayer->draw(shaderNum, textureBind);
 
-	glColor3f(1, 0, 0);
-	glRasterPos3f(0.0, 0.0, 0.0);
-	TextManager::GetInstance()->glPrint("<-");
+	if(isGameStart)
+		TextManager::GetInstance()->drawTutorial();
 
 	testTiles->draw(shaderNum, textureBind);
 	

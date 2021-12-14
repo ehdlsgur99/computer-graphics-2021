@@ -77,7 +77,6 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 	}
 	if (out && player->isjump == false)
 	{
-		printf("123\n");
 		player->collision(0); // Down
 		return 2;
 	}
