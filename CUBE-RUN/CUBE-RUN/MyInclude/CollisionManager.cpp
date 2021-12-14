@@ -17,6 +17,7 @@ CollisionManager::~CollisionManager()
 // return 1 : 튀어나온 큐브
 // return 2 : 땅에 꺼진 큐브
 // return 3 : 코인
+// return 4 : 장외
 int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 {
 	glm::vec3 playerPos = player->getTranslateVec();
@@ -24,6 +25,7 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 	for (int i = 0; i < tiles->tiles.size(); i++)
 	{
 		Tile* nowTile = tiles->tiles[i];
+		bool out = true;
 		for (int j = 0; j < nowTile->cubes.size(); j++)
 		{
 			// 큐브 충돌
@@ -34,23 +36,37 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 			float distance = sqrt(pow(((playerPos.x) - cubePos.x), 2) + pow(((playerPos.y) - cubePos.y), 2) + pow((playerPos.z- cubePos.z), 2));
 			if (distance < 1.0f )
 			{
+				if (nowTile->cubeTypes[j] == eCubeType::eCubeNormal)
+				{
+					out = false;
+				}
+
 				if (nowTile->cubeTypes[j] == eCubeType::eCubeUp)
 				{
+					out = false;
 					ParticleManager::GetInstance()->createParticle(player->getTranslateVec(), 1); // 1 = PlayerDestroyParticle
 					player->collision(1);
 					return 1;
 				}
 				if (nowTile->cubeTypes[j] == eCubeType::eCubeDown)
 				{
+					out = false;
 					if (nowTile->cubeTypes[j] != eCubeType::eCubeNormal)
 					{
 						player->collision(0); // Down
 						return 2;
 					}
 				}
-
 			}
 		}
+		//장외
+		//if (out)
+		//{
+		//	printf("gameover\n");
+		//	//player->collision(0); // Down
+		//	return 4;
+		//}
+
 		// 코인 충돌
 		for (int j = 0; j < nowTile->coins.size(); j++)
 		{

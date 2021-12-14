@@ -94,7 +94,7 @@ void Scene::input()
 	}
 
 	if (GetAsyncKeyState('O') & 0x8000) m_pPlayer->destroyparticle();
-
+	if (GetAsyncKeyState('R') & 0x0001) CORE->changeScene(0);
 }
 
 void Scene::update(float frameTime)
@@ -104,10 +104,6 @@ void Scene::update(float frameTime)
 	foward.y = 0;
 	foward = glm::normalize(foward);
 	Player::setForward(-foward);
-	
-	//player and camera move
-
-
 	
 	//player and camera move
 	if (isGameStart)
