@@ -44,8 +44,8 @@ bool System::init(int argc, char* argv[], int sizex, int sizey)
 	glutDisplayFunc(drawScene);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboardChecker);
-	glutMotionFunc(mouseMove);
-	glutMouseFunc(mouseAct);
+	//glutMotionFunc(mouseMove);
+	//glutMouseFunc(mouseAct);
 	glutMouseWheelFunc(mouseWheel);
 
 	glutIdleFunc(gameLoop);
