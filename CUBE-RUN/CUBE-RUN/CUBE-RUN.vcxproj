@@ -186,8 +186,6 @@
     <ClInclude Include="MyInclude\Types.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\1pass_fragment.glsl" />
-    <None Include="Shader\1pass_vertex.glsl" />
     <None Include="Shader\fragment_1.glsl" />
     <None Include="Shader\vertex_1.glsl" />
   </ItemGroup>
