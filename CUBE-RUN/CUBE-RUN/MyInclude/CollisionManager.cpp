@@ -34,7 +34,12 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 			cubePos = nowCube->getTranslateVec();
 			if (nowTile->cubeTypes[j] == eCubeType::eCubeDown)
 				cubePos.y += 2.0f;
+			if (nowTile->cubeTypes[j] == eCubeType::eCubeNormal)
+				cubePos.y += 1.0f;
 			float distance = sqrt(pow(((playerPos.x) - cubePos.x), 2) + pow(((playerPos.y) - cubePos.y), 2) + pow((playerPos.z- cubePos.z), 2));
+			
+			if (distance < 1.5f)
+				out = false;
 
 			if (distance < 0.5f )
 			{
@@ -52,6 +57,8 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 				
 			}
 		}
+		
+
 
 		// 코인 충돌
 		for (int j = 0; j < nowTile->coins.size(); j++)
@@ -67,6 +74,12 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 				return 3;
 			}
 		}
+	}
+	if (out && player->isjump == false)
+	{
+		printf("123\n");
+		player->collision(0); // Down
+		return 2;
 	}
 	
 }
