@@ -22,7 +22,7 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 				if(createPos == eCreatePos::eUp)
 					cubePos = glm::vec3(startPos.x + 1.0f * j, startPos.y, startPos.z - 1.0f * i);
 
-				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/bg.png");	
+				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/tile.png");	
 				cubes.push_back(cube);
 				cubeTypes.push_back(eCubeNormal);
 			}
@@ -64,7 +64,7 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 			for (int j = 0; j < 3; j++)
 			{
 				glm::vec3 cubePos = glm::vec3(startPos.x + 1.0f * j, startPos.y, startPos.z - 1.0f * i);
-				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/bg.png");	
+				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/tile.png");	
 				cubes.push_back(cube);
 				cubeTypes.push_back(eCubeNormal);
 			}

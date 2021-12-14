@@ -18,7 +18,6 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 {
 	m_tCamera = cam;
 
-	m_pPlane = new Cube("Objs/Cube.obj", glm::vec3(20.0f, 0.1f, 20.0f), glm::vec3(0.0f), glm::vec3(0.0f), "Texture/bg.png");
 	m_pPlayer = new Player(1.0f, glm::vec3(0.0f,0.0f,0.0f));
 
 	m_pPlayer = new Player(1.0f, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -134,9 +133,6 @@ void Scene::update(float frameTime)
 
 void Scene::draw(unsigned int shaderNum, int textureBind)
 {
-	// draw all
-	//m_pPlane->draw(shaderNum, textureBind);
-
 	m_pPlayer->draw(shaderNum, textureBind);
 
 	glColor3f(1, 0, 0);
