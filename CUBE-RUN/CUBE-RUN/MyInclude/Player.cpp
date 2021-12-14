@@ -64,6 +64,7 @@ void Player::input(char key)
 			isjump = true;
 			jumpdir = true;
 			org_pos = this->getTranslateVec();
+			SoundManager::GetInstance()->PlayEf("Sound/jump.wav");
 		}
 		break;
 	}
@@ -73,12 +74,15 @@ void Player::input(char key)
 
 void Player::update(float deltaTime)
 {
+	static float MoveUpSpeed = 0.1f;
 	static float fMoveSpeed = 5.0f;
 	static float fRotateSpeed = 400.0f;
 	static bool bIncreaseFront = true;
 	static bool bIncreaseBack = false;
 	glm::vec3 rotate = glm::vec3(0.0f);
 
+	fMoveSpeed += MoveUpSpeed * deltaTime;
+	fRotateSpeed += MoveUpSpeed * 2 * deltaTime;
 	switch (direction)
 	{
 	case 0:
@@ -258,6 +262,7 @@ void Player::collision(int type)
 {
 	if (invincibility) return; //무적상태
 
+	SoundManager::GetInstance()->PlayEf("Sound/gameover.wav");
 	life = false;
 	GameOverType = type;
 }

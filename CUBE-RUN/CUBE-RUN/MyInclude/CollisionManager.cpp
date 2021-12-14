@@ -21,10 +21,9 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 	glm::vec3 cubePos;
 	
 
-	
+	bool out = true;
 	for (int i = 0; i < tiles->tiles.size(); i++)
 	{
-		bool out = true;
 		Tile* nowTile = tiles->tiles[i];
 		for (int j = 0; j < nowTile->cubes.size(); j++)
 		{
@@ -51,15 +50,13 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 				}
 				if (nowTile->cubeTypes[j] == eCubeType::eCubeDown)
 				{
-					player->collision(0); // Down
+					player->collision(1); // Down
 					return 2;
 				}
 				
 			}
 		}
 		
-
-
 		// 코인 충돌
 		for (int j = 0; j < nowTile->coins.size(); j++)
 		{
@@ -68,6 +65,7 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 			float distance = sqrt(pow(((playerPos.x) - cubePos.x), 2) + pow(((playerPos.y) - cubePos.y), 2) + pow((playerPos.z - cubePos.z), 2));
 			if (distance < 1.0f)
 			{
+				SoundManager::GetInstance()->PlayEf("Sound/coin.wav");
 				ParticleManager::GetInstance()->createParticle(nowTile->coins[j]->getTranslateVec(),0); // 0 = coin particle
 				delete nowTile->coins[j];
 				nowTile->coins.erase(nowTile->coins.begin() + j);
@@ -77,9 +75,8 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 	}
 	if (out && player->isjump == false)
 	{
-		printf("123\n");
-		player->collision(0); // Down
-		return 2;
+		player->collision(1); // Down
+		return 4;
 	}
 	
 }

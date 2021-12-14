@@ -119,9 +119,13 @@ void Scene::update(float frameTime)
 
 		int checkCollision = 0;
 		checkCollision = CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
-		if (checkCollision == 1 || checkCollision == 2)
+
+		if (checkCollision == 1 || checkCollision == 2 || checkCollision == 4)
 		{
-			screen->changeState(eScreenState::eGameOver, m_pPlayer);
+			if (m_pPlayer->invincibility == false)
+			{
+				screen->changeState(eScreenState::eGameOver, m_pPlayer);
+			}
 		}
 	}
 	
