@@ -14,8 +14,8 @@ Screen::~Screen()
 
 void Screen::init()
 {
-	gameStartCube = new Cube("Objs/Cube.obj", glm::vec3(10.0f, 5.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), screenPos, "Texture/start.png");
-	gameOverCube = new Cube("Objs/Cube.obj", glm::vec3(10.0f, 5.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), screenPos, "Texture/over.png");
+	gameStartCube = new Box("Objs/Cube.obj", glm::vec3(10.0f, 5.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), screenPos, "Texture/start.png");
+	gameOverCube = new Box("Objs/Cube.obj", glm::vec3(10.0f, 5.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), screenPos, "Texture/over.png");
 	time = 0;
 }
 

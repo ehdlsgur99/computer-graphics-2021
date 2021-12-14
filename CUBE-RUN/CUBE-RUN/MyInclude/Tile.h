@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Mesh.h"
-#include "Cube.h"
+#include "Object.h"
+#include "Box.h"
 #include <list>
 
 class TextureClass;
@@ -21,9 +21,9 @@ public:
 	eTileType tileType;
 	glm::vec3 startPos;			// startPos는 이전 타일 좌측 하단을 기준
 	eCreatePos createDirection;
-	std::vector<Cube*> cubes;
+	std::vector<Box*> cubes;
 	std::vector<eCubeType> cubeTypes;
-	std::vector<Cube*> coins;
+	std::vector<Box*> coins;
 public:
 	void init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos);
 	void update();

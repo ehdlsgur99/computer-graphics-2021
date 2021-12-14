@@ -1,8 +1,7 @@
-#include "Core.h"
+#include "System.h"
 #include "Scene.h"
-#include "Cube.h"
+#include "Box.h"
 #include "Player.h"
-#include "RotatingCube.h"
 #include "Portal.h"
 #include "Tile.h"
 #include "CollisionManager.h"
@@ -40,7 +39,7 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 
 Scene::~Scene()
 {
-	//delete m_pMeshes;
+	//delete m_pObjectes;
 }
 
 void Scene::input()
@@ -64,13 +63,13 @@ void Scene::input()
 	{
 		m_pPlayer->input('z');
 		m_tCamera.updatePos(m_pPlayer->angle, 30);
-		CORE->updateViewMat();
+		System::GetInstance()->updateViewMat();
 	}
 	if (GetAsyncKeyState('X') & 0x0001)
 	{
 		m_pPlayer->input('x');
 		m_tCamera.updatePos(m_pPlayer->angle, 30);
-		CORE->updateViewMat();
+		System::GetInstance()->updateViewMat();
 
 	}
 	if (GetAsyncKeyState(VK_SPACE) & 0x0001)
@@ -88,12 +87,12 @@ void Scene::input()
 	{
 		screen->changeState(eScreenState::eGameRun, m_pPlayer);
 		m_tCamera.updatePos(m_pPlayer->angle, 30.0f);
-		CORE->updateViewMat();
+		System::GetInstance()->updateViewMat();
 		isGameStart = true;
 	}
 
 	if (GetAsyncKeyState('O') & 0x8000) m_pPlayer->destroyparticle();
-	if (GetAsyncKeyState('R') & 0x0001) CORE->changeScene(0);
+	if (GetAsyncKeyState('R') & 0x0001) System::GetInstance()->changeScene(0);
 }
 
 void Scene::update(float frameTime)
@@ -109,14 +108,14 @@ void Scene::update(float frameTime)
 	{
 		m_pPlayer->update(frameTime);
 		if (m_pPlayer->life) m_tCamera.setTarget(m_pPlayer->getTranslateVec());
-		CORE->update_lightpos(brightness);
+		System::GetInstance()->update_lightpos(brightness);
 
 		if (!start_update_viewmat)
 		{
 			start_update_viewmat = true;
 			m_pPlayer->input('x');
 			m_tCamera.updatePos(m_pPlayer->angle, 30);
-			CORE->updateViewMat();
+			System::GetInstance()->updateViewMat();
 		}
 	}
 	int checkCollision = 0;

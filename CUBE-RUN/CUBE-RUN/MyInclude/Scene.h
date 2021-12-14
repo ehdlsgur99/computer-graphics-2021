@@ -4,7 +4,7 @@
 
 
 class Player;
-class Mesh;
+class Object;
 class Cube;
 class Portal;
 class Tile;

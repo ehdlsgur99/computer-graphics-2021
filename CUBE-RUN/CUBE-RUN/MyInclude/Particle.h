@@ -5,7 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "Singleton.h"
-#include "Cube.h"
+#include "Box.h"
 
 
 
@@ -19,8 +19,8 @@ private:
 	float size;
 	int Ptype;
 
-	Cube* coinParticle;
-	Cube* PlayerDestroyParticle;
+	Box* coinParticle;
+	Box* PlayerDestroyParticle;
 public:
 	Particle(int type);
 	~Particle() = default;

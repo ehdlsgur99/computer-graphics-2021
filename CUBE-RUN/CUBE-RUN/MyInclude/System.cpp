@@ -1,5 +1,5 @@
-#include "Core.h"
-#include "Mesh.h"
+#include "System.h"
+#include "Object.h"
 #include "Timer.h"
 #include "Scene.h"
 #include "ShaderProgram.h"
@@ -7,15 +7,13 @@
 #include "DepthMap.h"
 #include "TextManager.h"
 
-Single* Single::m_pInst = nullptr;
 
-
-Single::Single()
+System::System()
 {
 	m_pScene = nullptr;
 }
 
-Single::~Single()
+System::~System()
 {
 	delete m_pScene;
 	delete m_pMainShader;
@@ -23,9 +21,9 @@ Single::~Single()
 	delete m_pSkyCube;
 }
 
-bool Single::init(int argc, char* argv[], int sizex, int sizey)
+bool System::init(int argc, char* argv[], int sizex, int sizey)
 {
-	CORE->m_tWndSize = { sizex, sizey };
+	System::GetInstance()->m_tWndSize = { sizex, sizey };
 
 	// Initialize Window
 	glutInit(&argc, argv);
@@ -66,15 +64,15 @@ bool Single::init(int argc, char* argv[], int sizex, int sizey)
 	return true;
 }
 
-void Single::run()
+void System::run()
 {
-	CORE->m_pTimer = new Timer;
+	System::GetInstance()->m_pTimer = new Timer;
 	//m_pTimer->resetTimer();
 
 	glutMainLoop();
 }
 
-void Single::changeScene(int sceneNum)
+void System::changeScene(int sceneNum)
 {
 	if (!m_pScene) delete m_pScene;
 
@@ -91,12 +89,12 @@ void Single::changeScene(int sceneNum)
 	if (sceneNum) updateViewMat();
 }
 
-void Single::endProgram()
+void System::endProgram()
 {
 	glutLeaveMainLoop();
 }
 
-void Single::initializeProgram()
+void System::initializeProgram()
 {
 	// init scene
 	changeScene(0);
@@ -131,7 +129,7 @@ void Single::initializeProgram()
 	show_fog();
 	//-------------------------------------------------------------------------------------
 	// cube shader
-	m_pCube = new Mesh("Objs/Cube.obj", glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f));
+	m_pCube = new Object("Objs/Cube.obj", glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f));
 	m_pSkyCube = new CubeMap("Texture/cube/s");
 
 	m_pCubeShader->use();
@@ -154,7 +152,7 @@ void Single::initializeProgram()
 
 }
 
-void Single::updateViewMat()
+void System::updateViewMat()
 {
 	glm::mat4 viewTransform = m_pScene->m_tCamera.getViewMat();
 
@@ -170,7 +168,7 @@ void Single::updateViewMat()
 
 }
 
-void Single::drawSkyCube()
+void System::drawSkyCube()
 {
 	glDepthFunc(GL_LEQUAL);
 	m_pCubeShader->use();
@@ -183,15 +181,15 @@ void Single::drawSkyCube()
 	glDepthFunc(GL_LESS);
 }
 
-void Single::drawScene()
+void System::drawScene()
 {
 	//--------------------------------------------------------------
 	// 1st pass
 	glCullFace(GL_FRONT);
-	CORE->m_pShadowShader->use();
+	System::GetInstance()->m_pShadowShader->use();
 
-	CORE->m_pDepthMap->useTexMap();
-	CORE->m_pScene->draw(CORE->m_pShadowShader->getProgram(), 0);
+	System::GetInstance()->m_pDepthMap->useTexMap();
+	System::GetInstance()->m_pScene->draw(System::GetInstance()->m_pShadowShader->getProgram(), 0);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -199,7 +197,7 @@ void Single::drawScene()
 	//--------------------------------------------------------------
 	// 2nd pass
 	glCullFace(GL_BACK);
-	glViewport(0, 0, CORE->m_tWndSize.cx, CORE->m_tWndSize.cy);
+	glViewport(0, 0, System::GetInstance()->m_tWndSize.cx, System::GetInstance()->m_tWndSize.cy);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
@@ -212,43 +210,43 @@ void Single::drawScene()
 	glStencilFunc(GL_NEVER, 0, 0xFF);
 	glStencilOp(GL_INCR, GL_KEEP, GL_KEEP);					// draw 1s when test failed
 
-	CORE->m_pMainShader->use();
-	CORE->m_pDepthMap->bindTexture(0);
+	System::GetInstance()->m_pMainShader->use();
+	System::GetInstance()->m_pDepthMap->bindTexture(0);
 
 	// draw stencil pattern
 	glClear(GL_STENCIL_BUFFER_BIT);
 
 	// portal draw
-	CORE->m_pScene->drawPortal(CORE->m_pMainShader->getProgram(), 1);
+	System::GetInstance()->m_pScene->drawPortal(System::GetInstance()->m_pMainShader->getProgram(), 1);
 
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glDepthMask(GL_TRUE);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
 	// draw all
-	CORE->m_pMainShader->use();
-	CORE->m_pDepthMap->bindTexture(0);
-	CORE->m_pScene->draw(CORE->m_pMainShader->getProgram(), 1);
+	System::GetInstance()->m_pMainShader->use();
+	System::GetInstance()->m_pDepthMap->bindTexture(0);
+	System::GetInstance()->m_pScene->draw(System::GetInstance()->m_pMainShader->getProgram(), 1);
 
 
 	//--------------------------------------------------------------
-	CORE->drawSkyCube();
+	System::GetInstance()->drawSkyCube();
 
 
 
 	glutSwapBuffers();
 }
 
-void Single::reshape(int w, int h)
+void System::reshape(int w, int h)
 {
 	glViewport(0, 0, w, h);
-	CORE->m_tWndSize = { w,h };
+	System::GetInstance()->m_tWndSize = { w,h };
 
 	// update proj mat
 	glm::mat4 projectionMat =
 		glm::perspective(glm::radians(45.0f), float(w) / float(h), 0.1f, 300.0f);
-	CORE->m_pMainShader->setMat4("projectionTransform", projectionMat);
-	CORE->m_pCubeShader->setMat4("projectionTransform", projectionMat);
+	System::GetInstance()->m_pMainShader->setMat4("projectionTransform", projectionMat);
+	System::GetInstance()->m_pCubeShader->setMat4("projectionTransform", projectionMat);
 
 	//-------------------------------------------------------------------------------------
 	//// shadow shader
@@ -256,26 +254,26 @@ void Single::reshape(int w, int h)
 	//CORE->m_pShadowShader->setMat4("lightSpace", (projectionMat * lightView));
 }
 
-void Single::mouseAct(int key, int state, int x, int y)
+void System::mouseAct(int key, int state, int x, int y)
 {
-	if (key == GLUT_LEFT_BUTTON) CORE->m_pScene->activeDragging(state == GLUT_DOWN, { x,y });
+	if (key == GLUT_LEFT_BUTTON) System::GetInstance()->m_pScene->activeDragging(state == GLUT_DOWN, { x,y });
 }
 
-void Single::mouseMove(int x, int y)
+void System::mouseMove(int x, int y)
 {
-	CORE->m_pScene->moveMouse({ x,y });
-	CORE->updateViewMat();
+	System::GetInstance()->m_pScene->moveMouse({ x,y });
+	System::GetInstance()->updateViewMat();
 
 
 }
 
-void Single::mouseWheel(int wheel, int dir, int x, int y)
+void System::mouseWheel(int wheel, int dir, int x, int y)
 {
-	CORE->m_pScene->scrollMouse(dir);
-	CORE->updateViewMat();
+	System::GetInstance()->m_pScene->scrollMouse(dir);
+	System::GetInstance()->updateViewMat();
 }
 
-void Single::keyboardChecker(unsigned char key, int x, int y)
+void System::keyboardChecker(unsigned char key, int x, int y)
 {
 	switch (key) {
 	case 'q':
@@ -285,25 +283,25 @@ void Single::keyboardChecker(unsigned char key, int x, int y)
 
 	case 'f':
 	case 'F':
-		printf("%f\n", 1.0 / CORE->m_pTimer->getDeltaTime());
+		printf("%f\n", 1.0 / System::GetInstance()->m_pTimer->getDeltaTime());
 		break;
 	}
 }
 
-void Single::gameLoop()
+void System::gameLoop()
 {
-	float deltaTime = CORE->m_pTimer->getDeltaTime();
+	float deltaTime = System::GetInstance()->m_pTimer->getDeltaTime();
 
-	CORE->m_pScene->input();
-	CORE->m_pScene->update(deltaTime);
-	CORE->updateViewMat();
+	System::GetInstance()->m_pScene->input();
+	System::GetInstance()->m_pScene->update(deltaTime);
+	System::GetInstance()->updateViewMat();
 	glutPostRedisplay();			// draw
 
-	CORE->m_pTimer->updateDeltaTime();
+	System::GetInstance()->m_pTimer->updateDeltaTime();
 }
 
 
-void Single::update_lightpos(float brightness)
+void System::update_lightpos(float brightness)
 {
 	glm::vec3 viewPos = m_pScene->m_tCamera.vEYE;
 	m_vLightPos = glm::vec3(glm::vec3(m_pScene->get_player_pos().x, m_pScene->get_player_pos().y + 3.0f, m_pScene->get_player_pos().z));
@@ -316,7 +314,7 @@ void Single::update_lightpos(float brightness)
 	glutPostRedisplay();
 }
 
-void Single::show_fog()
+void System::show_fog()
 {
 	GLfloat fogColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

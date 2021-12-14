@@ -44,8 +44,8 @@ Particle::Particle(int type)
 	Ptype = type;
 
 	
-	coinParticle = new Cube("Objs/cube.obj", glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), "Texture/300coin.png");
-	PlayerDestroyParticle = new Cube("Objs/cube.obj", glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), "Texture/Player/player_texture.png");
+	coinParticle = new Box("Objs/cube.obj", glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), "Texture/300coin.png");
+	PlayerDestroyParticle = new Box("Objs/cube.obj", glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), "Texture/Player/player_texture.png");
 
 }
 

@@ -143,11 +143,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyInclude\CollisionManager.cpp" />
-    <ClCompile Include="MyInclude\Core.cpp" />
+    <ClCompile Include="MyInclude\System.cpp" />
     <ClCompile Include="MyInclude\CubeMap.cpp" />
     <ClCompile Include="MyInclude\DepthMap.cpp" />
-    <ClCompile Include="MyInclude\Mesh.cpp" />
-    <ClCompile Include="MyInclude\Cube.cpp" />
+    <ClCompile Include="MyInclude\Object.cpp" />
+    <ClCompile Include="MyInclude\Box.cpp" />
     <ClCompile Include="MyInclude\ObjectManager.cpp" />
     <ClCompile Include="MyInclude\Particle.cpp" />
     <ClCompile Include="MyInclude\ParticleManager.cpp" />
@@ -165,14 +165,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyInclude\CollisionManager.h" />
-    <ClInclude Include="MyInclude\Core.h" />
+    <ClInclude Include="MyInclude\System.h" />
     <ClInclude Include="MyInclude\CubeMap.h" />
     <ClInclude Include="MyInclude\DepthMap.h" />
     <ClInclude Include="MyInclude\Game.h" />
     <ClInclude Include="MyInclude\includeThis.h" />
     <ClInclude Include="MyInclude\macro.h" />
-    <ClInclude Include="MyInclude\Mesh.h" />
-    <ClInclude Include="MyInclude\Cube.h" />
+    <ClInclude Include="MyInclude\Object.h" />
+    <ClInclude Include="MyInclude\Box.h" />
     <ClInclude Include="MyInclude\ObjectManager.h" />
     <ClInclude Include="MyInclude\Particle.h" />
     <ClInclude Include="MyInclude\ParticleManager.h" />

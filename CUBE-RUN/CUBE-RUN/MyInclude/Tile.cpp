@@ -22,7 +22,7 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 				if(createPos == eCreatePos::eUp)
 					cubePos = glm::vec3(startPos.x + 1.0f * j, startPos.y, startPos.z - 1.0f * i);
 
-				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/tile.png");	
+				Box*cube = new Box("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/tile.png");
 				cubes.push_back(cube);
 				cubeTypes.push_back(eCubeNormal);
 			}
@@ -52,7 +52,7 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 			}
 			else if (cubeTypes[i] == eCubeCoin)
 			{
-				Cube* coin = new Cube("Objs/cube.obj", glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(glm::vec3(cubes[i]->getTranslateVec().x + 0.0f, cubes[i]->getTranslateVec().y + 1.0f, cubes[i]->getTranslateVec().z + 0.0)), "Texture/300coin.png");
+				Box* coin = new Box("Objs/cube.obj", glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(glm::vec3(cubes[i]->getTranslateVec().x + 0.0f, cubes[i]->getTranslateVec().y + 1.0f, cubes[i]->getTranslateVec().z + 0.0)), "Texture/300coin.png");
 				coins.push_back(coin);
 			}
 		}
@@ -64,7 +64,7 @@ void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 			for (int j = 0; j < 3; j++)
 			{
 				glm::vec3 cubePos = glm::vec3(startPos.x + 1.0f * j, startPos.y, startPos.z - 1.0f * i);
-				Cube *cube = new Cube("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/tile.png");	
+				Box* cube = new Box("Objs/Cube.obj", glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(cubePos), "Texture/tile.png");
 				cubes.push_back(cube);
 				cubeTypes.push_back(eCubeNormal);
 			}
