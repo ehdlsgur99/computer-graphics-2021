@@ -1,6 +1,5 @@
 #include "common.h"
 
-
 System::System()
 {
 	m_pScene = nullptr;
@@ -92,7 +91,7 @@ void System::initializeProgram()
 
 	// init shaders
 	m_pMainShader = new ShaderProgram("Shader/vertex_1.glsl", "Shader/fragment_1.glsl");
-	//m_pShadowShader = new ShaderProgram("Shader/1pass_vertex.glsl","Shader/1pass_fragment.glsl");
+	m_pShadowShader = new ShaderProgram("Shader/1pass_vertex.glsl","Shader/1pass_fragment.glsl");
 	// init mainshader transform
 	//-------------------------------------------------------------------------------------
 	// main shader

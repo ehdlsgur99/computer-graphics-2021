@@ -1,8 +1,8 @@
 #pragma once
 
 
-
 #include "common.h"
+
 
 #define DEFAULTFONTSIZE 20
 
@@ -16,7 +16,8 @@ enum FONT
 	TREBUCHETMS     // Trebuchet MS = 6
 };
 
-//std::string hepler[] = { "<-,-> press player move!","Space Player Jump!","z,x " };
+//std::string my_hepler[] = { "<-,-> press player move!","Space Player Jump!","z,x Player Rotate!" };
+
 class TextManager : public CSingleton<TextManager>
 {
 public:

@@ -132,8 +132,6 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 	screen->draw(shaderNum, textureBind);
 
 	ParticleManager::GetInstance()->Draw(90.0f, 36, shaderNum, textureBind);
-
-
 }
 
 void Scene::drawPortal(unsigned int shaderNum, int textureBind)
