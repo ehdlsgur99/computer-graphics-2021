@@ -126,17 +126,10 @@ void System::initializeProgram()
 	m_pMainShader->setVec3("lightPos", m_vLightPos);
 	m_pMainShader->setVec3("lightColor", m_vLightColor);
 
-	show_fog();
-	//-------------------------------------------------------------------------------------
-	// cube shader
-	m_pCube = new Object("Objs/Cube.obj", glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f));
-	m_pSkyCube = new CubeMap("Texture/cube/s");
-
 	m_pCubeShader->use();
 	m_pCubeShader->setMat4("projectionTransform", projectionMat);
 	m_pCubeShader->setMat4("viewTransform", glm::mat3(viewTransform));
-	//-------------------------------------------------------------------------------------
-	// shadow shader
+
 	m_pShadowShader->use();
 	glm::mat4 shdwProj = glm::ortho(-30.0f, 30.0f, -30.0f, 30.0f, -10.0f, 300.0f);
 	glm::mat4 lightView = glm::lookAt(m_vLightPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -168,18 +161,6 @@ void System::updateViewMat()
 
 }
 
-void System::drawSkyCube()
-{
-	glDepthFunc(GL_LEQUAL);
-	m_pCubeShader->use();
-
-	// bind tex
-	m_pSkyCube->bindTexture(0);
-	// draw cube
-	m_pCube->draw();
-
-	glDepthFunc(GL_LESS);
-}
 
 void System::drawScene()
 {
@@ -198,7 +179,9 @@ void System::drawScene()
 	// 2nd pass
 	glCullFace(GL_BACK);
 	glViewport(0, 0, System::GetInstance()->m_tWndSize.cx, System::GetInstance()->m_tWndSize.cy);
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	// draw all
@@ -227,12 +210,6 @@ void System::drawScene()
 	System::GetInstance()->m_pMainShader->use();
 	System::GetInstance()->m_pDepthMap->bindTexture(0);
 	System::GetInstance()->m_pScene->draw(System::GetInstance()->m_pMainShader->getProgram(), 1);
-
-
-	//--------------------------------------------------------------
-	System::GetInstance()->drawSkyCube();
-
-
 
 	glutSwapBuffers();
 }
