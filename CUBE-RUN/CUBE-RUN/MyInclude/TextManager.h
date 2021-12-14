@@ -8,6 +8,7 @@
 #include <gl\gl.h>   // Header File For The OpenGL32 Library
 #include <gl\glu.h>  // Header File For The GLu32 Library
 #include <tchar.h>
+#include <string>
 
 #define DEFAULTFONTSIZE 20
 
@@ -21,6 +22,7 @@ enum FONT
 	TREBUCHETMS     // Trebuchet MS = 6
 };
 
+std::string hepler[] = { "<-,-> press player move!","Space Player Jump!","z,x " };
 class TextManager : public CSingleton<TextManager>
 {
 public:

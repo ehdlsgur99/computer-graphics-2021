@@ -9,6 +9,7 @@
 #include "Tiles.h"
 #include "Screen.h"
 #include "TextManager.h"
+#include "SoundManager.h"
 
 Scene::Scene(int sceneNum, CameraVectors& cam) :
 	m_pPortal{ nullptr, nullptr },
@@ -36,6 +37,8 @@ Scene::Scene(int sceneNum, CameraVectors& cam) :
 
 	m_pPortal[0] = new Portal(5.0f, 0, glm::vec3(10.0f, 0.0f, 0.0f));
 	m_pPortal[1] = new Portal(5.0f, 2, glm::vec3(0.0f, 0.0f, 10.0f));
+
+	SoundManager::GetInstance()->PlayBg("Sound/main_bgm.mp3");
 }
 
 Scene::~Scene()
@@ -46,14 +49,14 @@ Scene::~Scene()
 void Scene::input()
 {
 	// player move here
-	if (GetAsyncKeyState('A') & 0x8000)
+	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
 		m_pPlayer->input('a');
 		glm::vec3 move = m_pPlayer->getTranslateVec();
 		m_pPlayer->Player_side_move('a');
 	}
 	
-	if (GetAsyncKeyState('D') & 0x8000)
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
 		m_pPlayer->input('d');
 		glm::vec3 move = m_pPlayer->getTranslateVec();
@@ -137,7 +140,7 @@ void Scene::draw(unsigned int shaderNum, int textureBind)
 
 	glColor3f(1, 0, 0);
 	glRasterPos3f(0.0, 0.0, 0.0);
-	TextManager::GetInstance()->glPrint("test");
+	TextManager::GetInstance()->glPrint("<-");
 
 	testTiles->draw(shaderNum, textureBind);
 	

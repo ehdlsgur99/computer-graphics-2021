@@ -71,9 +71,6 @@ GLvoid TextManager::KillFont(GLvoid)                     // Delete The Font List
 
 GLvoid TextManager::glPrint(const char* fmt, ...)                // Custom GL "Print" Routine
 {
-
-   
-
     char        text[256];          // Holds Our String
     va_list     ap;                 // Pointer To List Of Arguments
 
