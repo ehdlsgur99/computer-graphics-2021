@@ -17,6 +17,8 @@ private:
 	int m_iSceneNum;
 	bool start_update_viewmat = false;
 	float brightness;
+	float player_invincibility_time = 0;
+	bool isPlayer_invincibility = false;
 public:
 	CameraVectors m_tCamera;
 	Player* m_pPlayer;

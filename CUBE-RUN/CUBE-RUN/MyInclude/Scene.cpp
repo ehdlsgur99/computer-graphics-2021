@@ -106,13 +106,25 @@ void Scene::update(float frameTime)
 			m_tCamera.updatePos(m_pPlayer->angle, 30);
 			System::GetInstance()->updateViewMat();
 		}
+
+		if (!isPlayer_invincibility)
+		{
+			player_invincibility_time += frameTime;
+			if (player_invincibility_time >= 2.0f)
+			{
+				isPlayer_invincibility = true;
+				m_pPlayer->invincibility = false;
+			}
+		}
+
+		int checkCollision = 0;
+		checkCollision = CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
+		if (checkCollision == 1 || checkCollision == 2)
+		{
+			screen->changeState(eScreenState::eGameOver, m_pPlayer);
+		}
 	}
-	int checkCollision = 0;
-	checkCollision = CollisionManager::GetInstance()->checkCollPlayerCube(m_pPlayer, testTiles);
-	if (checkCollision == 1 || checkCollision == 2)
-	{
-		screen->changeState(eScreenState::eGameOver, m_pPlayer);
-	}
+	
 
 	ParticleManager::GetInstance()->Update(0.1f);
 	screen->update();
