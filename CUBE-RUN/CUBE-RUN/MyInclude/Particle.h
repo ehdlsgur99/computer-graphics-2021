@@ -1,12 +1,7 @@
 #pragma once
-#include <gl/glm/gtc/matrix_transform.hpp>
-#include <gl/glew.h>
-#include <gl/glm/ext.hpp>
-#include <vector>
-#include <iostream>
-#include "Singleton.h"
-#include "Box.h"
 
+
+#include "common.h"
 
 
 class Particle

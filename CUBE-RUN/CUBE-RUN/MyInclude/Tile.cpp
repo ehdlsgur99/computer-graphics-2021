@@ -1,4 +1,4 @@
-#include "Tile.h"
+#include "common.h"
 
 void Tile::init(eTileType tileType, glm::vec3 startPos,  eCreatePos createPos)
 {

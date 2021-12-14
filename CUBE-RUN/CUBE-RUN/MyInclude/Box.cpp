@@ -1,5 +1,4 @@
-#include "Box.h"
-#include "TextureClass.h"
+#include "common.h"
 
 Box::Box(const char* objFile, glm::vec3 s, glm::vec3 r, glm::vec3 t, const char* texFile) :
 	Object(objFile, s, r, t)

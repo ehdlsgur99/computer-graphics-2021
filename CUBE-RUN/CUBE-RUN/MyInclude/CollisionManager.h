@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Singleton.h"
+#include "common.h"
 
 /*
 	충돌체크 클래스

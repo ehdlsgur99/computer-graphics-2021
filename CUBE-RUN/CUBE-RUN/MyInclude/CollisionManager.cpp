@@ -1,6 +1,4 @@
-#include "CollisionManager.h"
-#include "Player.h"
-#include "Tiles.h"
+#include "common.h"
 
 
 

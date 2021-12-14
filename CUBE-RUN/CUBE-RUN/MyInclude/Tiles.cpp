@@ -1,4 +1,4 @@
-#include "Tiles.h"
+#include "common.h"
 
 void Tiles::init()
 {

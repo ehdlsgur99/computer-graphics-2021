@@ -1,7 +1,6 @@
 #pragma once
-#include "Object.h"
-#include "Box.h"
-#include "Tile.h"
+
+#include "common.h"
 
 class TextureClass;
 

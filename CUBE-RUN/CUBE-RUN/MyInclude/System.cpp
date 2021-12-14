@@ -1,11 +1,4 @@
-#include "System.h"
-#include "Object.h"
-#include "Timer.h"
-#include "Scene.h"
-#include "ShaderProgram.h"
-#include "CubeMap.h"
-#include "DepthMap.h"
-#include "TextManager.h"
+#include "common.h"
 
 
 System::System()
@@ -17,8 +10,6 @@ System::~System()
 {
 	delete m_pScene;
 	delete m_pMainShader;
-	delete m_pCube;
-	delete m_pSkyCube;
 }
 
 bool System::init(int argc, char* argv[], int sizex, int sizey)
@@ -101,8 +92,7 @@ void System::initializeProgram()
 
 	// init shaders
 	m_pMainShader = new ShaderProgram("Shader/vertex_1.glsl", "Shader/fragment_1.glsl");
-	m_pShadowShader = new ShaderProgram("Shader/1pass_vertex.glsl","Shader/1pass_fragment.glsl");
-	m_pCubeShader = new ShaderProgram("Shader/vertex_cube.glsl", "Shader/fragment_cube.glsl");
+	//m_pShadowShader = new ShaderProgram("Shader/1pass_vertex.glsl","Shader/1pass_fragment.glsl");
 	// init mainshader transform
 	//-------------------------------------------------------------------------------------
 	// main shader
@@ -126,9 +116,6 @@ void System::initializeProgram()
 	m_pMainShader->setVec3("lightPos", m_vLightPos);
 	m_pMainShader->setVec3("lightColor", m_vLightColor);
 
-	m_pCubeShader->use();
-	m_pCubeShader->setMat4("projectionTransform", projectionMat);
-	m_pCubeShader->setMat4("viewTransform", glm::mat3(viewTransform));
 
 	m_pShadowShader->use();
 	glm::mat4 shdwProj = glm::ortho(-30.0f, 30.0f, -30.0f, 30.0f, -10.0f, 300.0f);
@@ -154,11 +141,6 @@ void System::updateViewMat()
 	m_pMainShader->use();
 	m_pMainShader->setMat4("viewTransform", viewTransform);
 	m_pMainShader->setVec3("viewPos", m_pScene->m_tCamera.vEYE * m_pScene->m_tCamera.scroll);
-
-	// cube
-	m_pCubeShader->use();
-	m_pCubeShader->setMat4("viewTransform", glm::mat3(viewTransform));
-
 }
 
 
@@ -184,9 +166,6 @@ void System::drawScene()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	// draw all
-	// first should draw portal
-	// stensil buffer will do
 
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
 	glDepthMask(GL_FALSE);
@@ -220,15 +199,9 @@ void System::reshape(int w, int h)
 	System::GetInstance()->m_tWndSize = { w,h };
 
 	// update proj mat
-	glm::mat4 projectionMat =
-		glm::perspective(glm::radians(45.0f), float(w) / float(h), 0.1f, 300.0f);
+	glm::mat4 projectionMat = glm::perspective(glm::radians(45.0f), float(w) / float(h), 0.1f, 300.0f);
 	System::GetInstance()->m_pMainShader->setMat4("projectionTransform", projectionMat);
-	System::GetInstance()->m_pCubeShader->setMat4("projectionTransform", projectionMat);
 
-	//-------------------------------------------------------------------------------------
-	//// shadow shader
-	//glm::mat4 lightView = glm::lookAt(CORE->m_vLightPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//CORE->m_pShadowShader->setMat4("lightSpace", (projectionMat * lightView));
 }
 
 void System::mouseAct(int key, int state, int x, int y)
@@ -257,7 +230,6 @@ void System::keyboardChecker(unsigned char key, int x, int y)
 	case 'Q':
 		glutLeaveMainLoop();
 		break;
-
 	case 'f':
 	case 'F':
 		printf("%f\n", 1.0 / System::GetInstance()->m_pTimer->getDeltaTime());
@@ -278,7 +250,7 @@ void System::gameLoop()
 }
 
 
-void System::update_lightpos(float brightness)
+void System::updatelightpos(float brightness)
 {
 	glm::vec3 viewPos = m_pScene->m_tCamera.vEYE;
 	m_vLightPos = glm::vec3(glm::vec3(m_pScene->get_player_pos().x, m_pScene->get_player_pos().y + 3.0f, m_pScene->get_player_pos().z));
@@ -289,18 +261,4 @@ void System::update_lightpos(float brightness)
 	m_pMainShader->setVec3("lightColor", m_vLightColor);
 
 	glutPostRedisplay();
-}
-
-void System::show_fog()
-{
-	GLfloat fogColor[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-	glFogi(GL_FOG_MODE, GL_LINEAR); // <1>
-	glFogfv(GL_FOG_COLOR, fogColor); // <2>
-	glFogf(GL_FOG_DENSITY, 0.7f); // <3>
-	glHint(GL_FOG_HINT, GL_NICEST); // <4>
-	glFogf(GL_FOG_START, 0.0f); // <5>
-	glFogf(GL_FOG_END, 4.0f); // <6>
-	glEnable(GL_FOG); // <7>
 }

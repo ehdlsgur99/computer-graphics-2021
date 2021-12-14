@@ -1,7 +1,6 @@
 #pragma once
-#include "Object.h"
-#include "Object.h"
-#include "ParticleManager.h"
+
+#include "common.h"
 
 
 

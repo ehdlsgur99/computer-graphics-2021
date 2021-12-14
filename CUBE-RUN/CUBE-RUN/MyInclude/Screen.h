@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Object.h"
-#include "Box.h"
-#include "Player.h"
+#include "common.h"
 
 enum eScreenState { eGameOver = 0, eGameStart, eGameRun };
 

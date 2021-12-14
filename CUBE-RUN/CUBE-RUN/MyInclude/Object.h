@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game.h"
+#include "common.h"
 
 
 class Object {

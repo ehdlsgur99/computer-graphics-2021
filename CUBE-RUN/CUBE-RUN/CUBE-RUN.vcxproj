@@ -144,7 +144,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyInclude\CollisionManager.cpp" />
     <ClCompile Include="MyInclude\System.cpp" />
-    <ClCompile Include="MyInclude\CubeMap.cpp" />
     <ClCompile Include="MyInclude\DepthMap.cpp" />
     <ClCompile Include="MyInclude\Object.cpp" />
     <ClCompile Include="MyInclude\Box.cpp" />
@@ -152,7 +151,6 @@
     <ClCompile Include="MyInclude\Particle.cpp" />
     <ClCompile Include="MyInclude\ParticleManager.cpp" />
     <ClCompile Include="MyInclude\Player.cpp" />
-    <ClCompile Include="MyInclude\Portal.cpp" />
     <ClCompile Include="MyInclude\Scene.cpp" />
     <ClCompile Include="MyInclude\Screen.cpp" />
     <ClCompile Include="MyInclude\ShaderProgram.cpp" />
@@ -165,19 +163,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyInclude\CollisionManager.h" />
+    <ClInclude Include="MyInclude\stb_image.h" />
     <ClInclude Include="MyInclude\System.h" />
-    <ClInclude Include="MyInclude\CubeMap.h" />
     <ClInclude Include="MyInclude\DepthMap.h" />
-    <ClInclude Include="MyInclude\Game.h" />
-    <ClInclude Include="MyInclude\includeThis.h" />
-    <ClInclude Include="MyInclude\macro.h" />
+    <ClInclude Include="MyInclude\common.h" />
     <ClInclude Include="MyInclude\Object.h" />
     <ClInclude Include="MyInclude\Box.h" />
     <ClInclude Include="MyInclude\ObjectManager.h" />
     <ClInclude Include="MyInclude\Particle.h" />
     <ClInclude Include="MyInclude\ParticleManager.h" />
     <ClInclude Include="MyInclude\Player.h" />
-    <ClInclude Include="MyInclude\Portal.h" />
     <ClInclude Include="MyInclude\Scene.h" />
     <ClInclude Include="MyInclude\Screen.h" />
     <ClInclude Include="MyInclude\ShaderProgram.h" />
@@ -194,9 +189,7 @@
     <None Include="Shader\1pass_fragment.glsl" />
     <None Include="Shader\1pass_vertex.glsl" />
     <None Include="Shader\fragment_1.glsl" />
-    <None Include="Shader\fragment_cube.glsl" />
     <None Include="Shader\vertex_1.glsl" />
-    <None Include="Shader\vertex_cube.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
