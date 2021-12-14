@@ -93,9 +93,12 @@ void Scene::update(float frameTime)
 	Player::setForward(-foward);
 	
 	//player and camera move
+	if (screen->nowScreenState == eScreenState::eGameRun) m_pPlayer->move_complete = true;
+
+	m_pPlayer->update(frameTime);
+
 	if (isGameStart)
 	{
-		m_pPlayer->update(frameTime);
 		if (m_pPlayer->life) m_tCamera.setTarget(m_pPlayer->getTranslateVec());
 		System::GetInstance()->updatelightpos(brightness);
 
@@ -125,7 +128,8 @@ void Scene::update(float frameTime)
 			if (m_pPlayer->invincibility == false)
 			{
 				screen->changeState(eScreenState::eGameOver, m_pPlayer);
-			}
+				isGameStart = false;
+			}	
 		}
 	}
 	

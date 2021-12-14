@@ -16,7 +16,8 @@ Player::Player(float size, glm::vec3 pivot) :
 	isjump(false),
 	max_jump_height(7.0f),
 	org_pos(glm::vec3(0.0f)),
-	jumpdir(true)
+	jumpdir(true),
+	move_complete(false)
 {
 	m_pBody = new Object("Objs/Cube.obj", glm::vec3(1.0f) * size, glm::vec3(0.0f), pivot + glm::vec3(0.0f, 0.0f, 0.0f) * size);
 
@@ -74,6 +75,8 @@ void Player::input(char key)
 
 void Player::update(float deltaTime)
 {
+	if (move_complete == false) return;
+
 	static float MoveUpSpeed = 0.1f;
 	static float fMoveSpeed = 5.0f;
 	static float fRotateSpeed = 400.0f;
@@ -263,7 +266,7 @@ void Player::collision(int type)
 	if (invincibility) return; //무적상태
 
 	SoundManager::GetInstance()->PlayEf("Sound/gameover.wav");
-	life = false;
 	GameOverType = type;
+	life = false;
 }
 

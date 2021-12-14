@@ -29,6 +29,7 @@ public:
 	bool life = true;
 	bool invincibility = true;
 	bool isjump;
+	bool move_complete;
 private:
 	glm::vec3 m_vLeftRot;
 	glm::vec3 m_vRightRot;
@@ -41,6 +42,8 @@ private:
 	bool jumpdir;
 	float max_jump_height;
 	glm::vec3 org_pos;
+	float zero_pos_time = 0.0f;;
+	
 private:
 	static glm::vec3 m_vDir;
 	static glm::vec3 m_vForward;
