@@ -50,7 +50,7 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 				}
 				if (nowTile->cubeTypes[j] == eCubeType::eCubeDown)
 				{
-					player->collision(1); // Down
+					player->collision(0); // Down
 					return 2;
 				}
 				
@@ -75,7 +75,7 @@ int CollisionManager::checkCollPlayerCube(Player *player, Tiles *tiles)
 	}
 	if (out && player->isjump == false)
 	{
-		player->collision(1); // Down
+		player->collision(0); // Down
 		return 4;
 	}
 	
